@@ -18248,3 +18248,191 @@ public class IconJToolBarExample {
 ử dụng `addSeparator()` để phân tách các nhóm nút có chức năng liên quan, tạo giao diện trực quan hơn.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JToolBar` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# BorderLayout
+
+`BorderLayout` là một trong những layout manager phổ biến nhất trong thư viện Swing của Java, giúp sắp xếp các thành phần (components) trong một container (chẳng hạn như `JFrame` hoặc `JPanel`) thành 5 vùng khác nhau: **North**, **South**, **East**, **West**, và **Center**. Đây là layout mặc định của `JFrame`, và nó giúp tổ chức giao diện một cách hiệu quả, đặc biệt khi có các thành phần có kích thước thay đổi.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc `BorderLayout`](#2-cấu-trúc-borderlayout)
+3. [Tạo và Sử Dụng `BorderLayout`](#3-tạo-và-sử-dụng-borderlayout)
+   1. [Thêm Thành Phần vào `BorderLayout`](#31-thêm-thành-phần-vào-borderlayout)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+5. [Tùy Biến `BorderLayout`](#5-tùy-biến-borderlayout)
+   1. [Thiết Lập Khoảng Cách Giữa Các Thành Phần](#51-thiết-lập-khoảng-cách-giữa-các-thành-phần)
+6. [Ví Dụ Minh Họa](#6-ví-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `BorderLayout` Cơ Bản](#61-ví-dụ-1-tạo-borderlayout-cơ-bản)
+   2. [Ví Dụ 2: Tùy Chỉnh `BorderLayout` với Khoảng Cách](#62-ví-dụ-2-tùy-chỉnh-borderlayout-với-khoảng-cách)
+7. [Kết Luận](#7-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`BorderLayout` sắp xếp các thành phần trong một container theo năm vùng cụ thể: **North**, **South**, **East**, **West**, và **Center**. Mỗi vùng có thể chứa một thành phần, và khi kích thước container thay đổi, các thành phần trong các vùng này sẽ tự động điều chỉnh kích thước để phù hợp với không gian mới.
+
+**Đặc điểm chính của `BorderLayout`:**
+
+- **Sắp xếp theo vùng:** Chia container thành 5 vùng để tổ chức các thành phần giao diện.
+- **Linh hoạt với kích thước thay đổi:** Thành phần ở vùng **Center** sẽ chiếm toàn bộ không gian còn lại sau khi các thành phần khác được đặt.
+- **Tự động điều chỉnh kích thước:** Các thành phần tự động điều chỉnh kích thước khi container thay đổi kích thước.
+
+---
+
+## 2. Cấu Trúc `BorderLayout`
+
+Các vùng của `BorderLayout` bao gồm:
+
+- **North (Phía trên):** Nằm ở phía trên cùng của container.
+- **South (Phía dưới):** Nằm ở phía dưới cùng của container.
+- **East (Bên phải):** Nằm ở bên phải của container.
+- **West (Bên trái):** Nằm ở bên trái của container.
+- **Center (Trung tâm):** Chiếm toàn bộ không gian còn lại sau khi các vùng khác được sắp xếp.
+
+Mỗi vùng có thể chứa một thành phần duy nhất. Nếu bạn thêm một thành phần mới vào vùng đã có sẵn, thành phần cũ sẽ bị thay thế.
+
+---
+
+## 3. Tạo và Sử Dụng `BorderLayout`
+
+### 3.1. Thêm Thành Phần vào `BorderLayout`
+
+Bạn có thể thêm các thành phần vào `BorderLayout` bằng cách sử dụng các hằng số `BorderLayout.NORTH`, `BorderLayout.SOUTH`, `BorderLayout.EAST`, `BorderLayout.WEST`, và `BorderLayout.CENTER` để xác định vị trí của thành phần.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class BorderLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("BorderLayout Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setLayout(new BorderLayout());
+
+        JButton northButton = new JButton("North");
+        JButton southButton = new JButton("South");
+        JButton eastButton = new JButton("East");
+        JButton westButton = new JButton("West");
+        JButton centerButton = new JButton("Center");
+
+        frame.add(northButton, BorderLayout.NORTH);
+        frame.add(southButton, BorderLayout.SOUTH);
+        frame.add(eastButton, BorderLayout.EAST);
+        frame.add(westButton, BorderLayout.WEST);
+        frame.add(centerButton, BorderLayout.CENTER);
+
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+`BorderLayout` không có nhiều thuộc tính như các layout khác, nhưng bạn có thể tùy chỉnh khoảng cách giữa các thành phần và vị trí của chúng trong container.
+
+- **`setHgap(int hgap)`**: Đặt khoảng cách ngang giữa các thành phần. Giá trị mặc định là 0.
+
+  ```java
+  frame.setLayout(new BorderLayout(10, 0)); // Khoảng cách ngang là 10
+  ```
+
+- **`setVgap(int vgap)`**: Đặt khoảng cách dọc giữa các thành phần. Giá trị mặc định là 0.
+
+  ```java
+  frame.setLayout(new BorderLayout(0, 10)); // Khoảng cách dọc là 10
+  ```
+
+---
+
+## 5. Tùy Biến `BorderLayout`
+
+### 5.1. Thiết Lập Khoảng Cách Giữa Các Thành Phần
+
+Bạn có thể thêm khoảng cách ngang và dọc giữa các thành phần bằng cách thiết lập `hgap` (khoảng cách ngang) và `vgap` (khoảng cách dọc) khi khởi tạo `BorderLayout`.
+
+```java
+frame.setLayout(new BorderLayout(10, 10)); // Khoảng cách ngang và dọc là 10
+```
+
+---
+
+## 6. Ví Dụ Minh Họa
+
+### 6.1. Ví Dụ 1: Tạo `BorderLayout` Cơ Bản
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class BasicBorderLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic BorderLayout Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setLayout(new BorderLayout());
+
+        frame.add(new JButton("North"), BorderLayout.NORTH);
+        frame.add(new JButton("South"), BorderLayout.SOUTH);
+        frame.add(new JButton("East"), BorderLayout.EAST);
+        frame.add(new JButton("West"), BorderLayout.WEST);
+        frame.add(new JButton("Center"), BorderLayout.CENTER);
+
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Ví Dụ 2: Tùy Chỉnh `BorderLayout` với Khoảng Cách
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class CustomBorderLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Custom BorderLayout Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Thiết lập BorderLayout với khoảng cách ngang và dọc
+        frame.setLayout(new BorderLayout(10, 10));
+
+        JButton northButton = new JButton("North");
+        JButton southButton = new JButton("South");
+        JButton eastButton = new JButton("East");
+        JButton westButton = new JButton("West");
+        JButton centerButton = new JButton("Center");
+
+        frame.add(northButton, BorderLayout.NORTH);
+        frame.add(southButton, BorderLayout.SOUTH);
+        frame.add(eastButton, BorderLayout.EAST);
+        frame.add(westButton, BorderLayout.WEST);
+        frame.add(centerButton, BorderLayout.CENTER);
+
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. Kết Luận
+
+`BorderLayout` là một trong những layout manager đơn giản và hữu ích nhất trong Swing. Nó cho phép bạn nhanh chóng sắp xếp các thành phần giao diện trong một container thành các vùng có thứ tự và logic. `BorderLayout` đặc biệt phù hợp với các ứng dụng có nhiều thành phần chính, chẳng hạn như thanh công cụ, thanh trạng thái và khu vực làm việc.
+
+**Một số lưu ý cuối:**
+
+- **Sử dụng vùng Center một cách hiệu quả:** Thành phần trong vùng `Center` sẽ mở rộng để chiếm không gian còn lại, vì vậy hãy đặt thành phần chính trong giao diện vào vùng này.
+- **Khoảng cách giữa các vùng:** Sử dụng `hgap` và `vgap` để tăng tính thẩm mỹ và dễ nhìn cho giao diện.
+- **Thứ tự thêm các thành phần:** Mỗi vùng chỉ có thể chứa một thành phần. Nếu bạn thêm nhiều thành phần vào cùng một vùng, thành phần trước sẽ bị thay thế.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `BorderLayout` và cách sử dụng nó trong các ứng dụng Swing của mình.
