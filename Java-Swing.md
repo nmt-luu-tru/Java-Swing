@@ -19260,3 +19260,124 @@ public class CardLayoutWithButtonsExample {
 - **Kết hợp với các thành phần điều hướng:** Sử dụng nút, menu, hoặc các thành phần điều hướng khác để giúp người dùng chuyển đổi giữa các thẻ.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `CardLayout` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# NullLayout
+
+`NullLayout` là một cách bố trí (layout) đặc biệt trong Java Swing, nơi bạn không sử dụng bất kỳ layout manager nào để quản lý vị trí và kích thước của các thành phần. Khi sử dụng `NullLayout`, bạn phải thiết lập vị trí và kích thước của từng thành phần một cách thủ công, thay vì để layout manager tự động sắp xếp chúng.
+
+Mặc dù `NullLayout` cho phép tự do hoàn toàn trong việc sắp xếp các thành phần, nhưng nó hiếm khi được khuyến nghị do các hạn chế về tính linh hoạt, đặc biệt khi thay đổi kích thước cửa sổ hoặc hiển thị giao diện trên các độ phân giải màn hình khác nhau.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Đặc Điểm của `NullLayout`](#2-đặc-điểm-của-nulllayout)
+3. [Tạo và Sử Dụng `NullLayout`](#3-tạo-và-sử-dụng-nulllayout)
+   1. [Đặt Vị Trí và Kích Thước Thủ Công](#31-đặt-vị-trí-và-kích-thước-thủ-công)
+4. [Ưu và Nhược Điểm của `NullLayout`](#4-ưu-và-nhược-điểm-của-nulllayout)
+5. [Ví Dụ Minh Họa](#5-ví-dụ-minh-họa)
+6. [Kết Luận](#6-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`NullLayout` thực chất không phải là một layout manager cụ thể mà là việc không sử dụng layout manager nào cả (`null` layout). Khi bạn thiết lập `null` layout cho một container, bạn hoàn toàn chịu trách nhiệm về việc định vị và kích thước của từng thành phần trong container đó. Để sắp xếp các thành phần, bạn sẽ phải sử dụng phương thức `setBounds(x, y, width, height)` cho từng thành phần để chỉ định vị trí và kích thước của chúng.
+
+## 2. Đặc Điểm của `NullLayout`
+
+- **Tự do sắp xếp:** Bạn có toàn quyền kiểm soát vị trí và kích thước của các thành phần.
+- **Phải quản lý thủ công:** Phải thiết lập vị trí và kích thước của từng thành phần.
+- **Thiếu tính linh hoạt:** Giao diện có thể không hiển thị tốt trên các độ phân giải hoặc kích thước màn hình khác nhau.
+
+## 3. Tạo và Sử Dụng `NullLayout`
+
+### 3.1. Đặt Vị Trí và Kích Thước Thủ Công
+
+Khi sử dụng `NullLayout`, bạn cần đặt layout manager của container về `null`. Sau đó, bạn sử dụng `setBounds(x, y, width, height)` để đặt vị trí và kích thước của các thành phần.
+
+```java
+import javax.swing.*;
+
+public class NullLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("NullLayout Example");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(null);  // Đặt layout manager là null
+
+        JButton button1 = new JButton("Button 1");
+        button1.setBounds(50, 50, 100, 30);  // Đặt vị trí và kích thước cho button1
+        frame.add(button1);
+
+        JButton button2 = new JButton("Button 2");
+        button2.setBounds(200, 100, 100, 30);  // Đặt vị trí và kích thước cho button2
+        frame.add(button2);
+
+        frame.setVisible(true);
+    }
+}
+```
+
+Trong ví dụ trên, `button1` được đặt ở vị trí (50, 50) với kích thước 100x30, và `button2` ở vị trí (200, 100) với kích thước 100x30. 
+
+## 4. Ưu và Nhược Điểm của `NullLayout`
+
+### Ưu Điểm
+
+- **Toàn quyền kiểm soát vị trí:** `NullLayout` cho phép bạn kiểm soát hoàn toàn vị trí và kích thước của các thành phần, phù hợp cho các giao diện đơn giản hoặc cố định.
+- **Phù hợp cho giao diện cố định:** Với các ứng dụng không yêu cầu thay đổi kích thước cửa sổ, `NullLayout` có thể là lựa chọn hiệu quả.
+
+### Nhược Điểm
+
+- **Thiếu tính linh hoạt:** Giao diện có thể không hiển thị đúng trên các màn hình hoặc độ phân giải khác nhau, và không tự động điều chỉnh khi thay đổi kích thước cửa sổ.
+- **Cần phải kiểm soát thủ công:** Bạn phải đặt vị trí và kích thước của từng thành phần một cách thủ công, có thể gây khó khăn trong việc quản lý giao diện phức tạp.
+- **Không đáp ứng tốt với các kích thước màn hình khác nhau:** `NullLayout` thường không phù hợp với các ứng dụng cần hỗ trợ nhiều độ phân giải hoặc kích thước màn hình.
+
+## 5. Ví Dụ Minh Họa
+
+```java
+import javax.swing.*;
+
+public class CustomNullLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Custom NullLayout Example");
+        frame.setSize(500, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setLayout(null);
+
+        JLabel label = new JLabel("Enter your name:");
+        label.setBounds(30, 50, 120, 25);
+        frame.add(label);
+
+        JTextField textField = new JTextField();
+        textField.setBounds(150, 50, 200, 25);
+        frame.add(textField);
+
+        JButton submitButton = new JButton("Submit");
+        submitButton.setBounds(150, 100, 100, 30);
+        frame.add(submitButton);
+
+        JButton cancelButton = new JButton("Cancel");
+        cancelButton.setBounds(260, 100, 100, 30);
+        frame.add(cancelButton);
+
+        frame.setVisible(true);
+    }
+}
+```
+
+Trong ví dụ trên, các thành phần được sắp xếp thủ công với `NullLayout`, và bạn phải thiết lập từng thành phần với vị trí và kích thước cụ thể bằng `setBounds()`.
+
+## 6. Kết Luận
+
+`NullLayout` cung cấp sự tự do hoàn toàn trong việc sắp xếp các thành phần giao diện, nhưng đồng thời cũng yêu cầu bạn quản lý thủ công vị trí và kích thước của từng thành phần. Điều này có thể phù hợp với các ứng dụng có giao diện đơn giản và cố định, nhưng không khuyến khích cho các ứng dụng có giao diện phức tạp hoặc yêu cầu đáp ứng trên nhiều độ phân giải màn hình.
+
+**Một số lưu ý cuối:**
+
+- **Hạn chế sử dụng `NullLayout` trong các ứng dụng phức tạp**: `NullLayout` thiếu tính linh hoạt, dễ gây khó khăn trong việc mở rộng và bảo trì.
+- **Cẩn thận khi điều chỉnh kích thước cửa sổ:** Vì `NullLayout` không tự động điều chỉnh vị trí hoặc kích thước các thành phần, nên giao diện có thể hiển thị không đúng khi thay đổi kích thước cửa sổ.
+- **Sử dụng các layout manager khác nếu có thể**: Các layout manager như `BorderLayout`, `GridLayout`, `BoxLayout`, và `CardLayout` có thể cung cấp tính linh hoạt và dễ bảo trì hơn cho các ứng dụng phức tạp.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ về `NullLayout` và cách sử dụng nó một cách hợp lý trong các ứng dụng Java Swing của mình.
