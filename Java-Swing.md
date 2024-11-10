@@ -16435,3 +16435,324 @@ public class JCheckBoxMenuItemInPopupMenuExample {
 - **Sử dụng linh hoạt:** `JCheckBoxMenuItem` có thể được sử dụng cho các tính năng như "Bật thông báo," "Chế độ tối," "Hiển thị thanh công cụ," và nhiều hơn nữa, giúp người dùng dễ dàng tùy chỉnh ứng dụng theo ý thích.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JCheckBoxMenuItem` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# JRadioButtonMenuItem
+
+`JRadioButtonMenuItem` là một thành phần giao diện người dùng trong thư viện Swing của Java, được sử dụng để tạo các mục menu dạng nút radio trong các menu. `JRadioButtonMenuItem` cho phép người dùng chọn một trong nhiều tùy chọn, phù hợp với các trường hợp cần lựa chọn đơn lẻ, chẳng hạn như "Chế độ hiển thị," "Độ phân giải," "Màu sắc," v.v. Khi một mục `JRadioButtonMenuItem` được chọn, các mục khác trong cùng nhóm sẽ tự động bị bỏ chọn, đảm bảo chỉ có một tùy chọn được chọn tại một thời điểm.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Tạo và Sử Dụng `JRadioButtonMenuItem`](#2-tạo-va-sử-dụng-jradiobuttonmenuitem)
+   1. [Tạo `JRadioButtonMenuItem`](#21-tạo-jradiobuttonmenuitem)
+   2. [Thiết Lập Thuộc Tính](#22-thiết-lập-thuộc-tính)
+   3. [Thêm `JRadioButtonMenuItem` Vào `JMenu` hoặc `JPopupMenu`](#23-thêm-jradiobuttonmenuitem-vào-jmenu-hoặc-jpopupmenu)
+3. [Thuộc Tính và Phương Thức Chính](#3-thuộc-tính-và-phương-thức-chính)
+   1. [Thuộc Tính](#31-thuộc-tính)
+   2. [Phương Thức](#32-phương-thức)
+4. [Xử Lý Sự Kiện](#4-xử-lý-sự-kiện)
+   1. [Sử Dụng `ActionListener`](#41-sử-dụng-actionlistener)
+5. [Tùy Biến `JRadioButtonMenuItem`](#5-tùy-biến-jradiobuttonmenuitem)
+6. [Ví Dụ Minh Họa](#6-vi-du-minh-hoa)
+   1. [Ví Dụ 1: Tạo `JRadioButtonMenuItem` Cơ Bản](#61-vi-du-1-tạo-jradiobuttonmenuitem-cơ-bản)
+   2. [Ví Dụ 2: Thêm `JRadioButtonMenuItem` Vào `JPopupMenu`](#62-vi-du-2-thêm-jradiobuttonmenuitem-vào-jpopupmenu)
+7. [Kết Luận](#7-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`JRadioButtonMenuItem` là một thành phần trong Swing, cung cấp các tùy chọn nút radio trong các menu. Nó cho phép người dùng chọn một trong nhiều tùy chọn trong cùng một nhóm, thích hợp cho các tình huống cần lựa chọn đơn lẻ.
+
+**Đặc điểm chính:**
+
+- **Radio button trong menu:** Hiển thị dưới dạng mục menu cho phép chọn một trong nhiều tùy chọn.
+- **Tích hợp với `JMenu` và `JPopupMenu`:** Thường được sử dụng trong các menu chính hoặc menu ngữ cảnh.
+- **Sử dụng linh hoạt:** Hữu ích cho các tùy chọn chọn đơn như chế độ hiển thị, chủ đề, hoặc độ phân giải.
+
+---
+
+## 2. Tạo và Sử Dụng `JRadioButtonMenuItem`
+
+### 2.1. Tạo `JRadioButtonMenuItem`
+
+Để tạo một `JRadioButtonMenuItem`, bạn khởi tạo đối tượng `JRadioButtonMenuItem` với tên của tùy chọn. Bạn cũng có thể thiết lập trạng thái mặc định của nó (được chọn hoặc không được chọn).
+
+```java
+import javax.swing.*;
+
+public class JRadioButtonMenuItemExample {
+    public static void main(String[] args) {
+        // Tạo JRadioButtonMenuItem với tên
+        JRadioButtonMenuItem lightThemeItem = new JRadioButtonMenuItem("Light Theme");
+        JRadioButtonMenuItem darkThemeItem = new JRadioButtonMenuItem("Dark Theme");
+        
+        // Đặt trạng thái mặc định
+        lightThemeItem.setSelected(true); // Chọn "Light Theme" mặc định
+    }
+}
+```
+
+### 2.2. Thiết Lập Thuộc Tính
+
+Bạn có thể thiết lập các thuộc tính của `JRadioButtonMenuItem` như trạng thái chọn, biểu tượng và phím tắt.
+
+```java
+// Đặt trạng thái mặc định là không được chọn
+darkThemeItem.setSelected(false);
+
+// Đặt biểu tượng cho JRadioButtonMenuItem
+darkThemeItem.setIcon(new ImageIcon("path/to/icon.png"));
+```
+
+### 2.3. Thêm `JRadioButtonMenuItem` Vào `JMenu` hoặc `JPopupMenu`
+
+`JRadioButtonMenuItem` thường được sử dụng trong `JMenu` hoặc `JPopupMenu`. Bạn có thể thêm `JRadioButtonMenuItem` vào các thành phần này để cung cấp cho người dùng các tùy chọn chọn đơn.
+
+```java
+import javax.swing.*;
+
+public class JMenuWithJRadioButtonMenuItem {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JRadioButtonMenuItem in JMenu Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JMenuBar menuBar = new JMenuBar();
+        JMenu viewMenu = new JMenu("View");
+
+        JRadioButtonMenuItem lightThemeItem = new JRadioButtonMenuItem("Light Theme");
+        JRadioButtonMenuItem darkThemeItem = new JRadioButtonMenuItem("Dark Theme");
+        
+        // Đặt lightThemeItem là lựa chọn mặc định
+        lightThemeItem.setSelected(true);
+        
+        // Tạo ButtonGroup để đảm bảo chỉ chọn một mục tại một thời điểm
+        ButtonGroup themeGroup = new ButtonGroup();
+        themeGroup.add(lightThemeItem);
+        themeGroup.add(darkThemeItem);
+        
+        // Thêm JRadioButtonMenuItem vào JMenu
+        viewMenu.add(lightThemeItem);
+        viewMenu.add(darkThemeItem);
+        
+        menuBar.add(viewMenu);
+        frame.setJMenuBar(menuBar);
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 3. Thuộc Tính và Phương Thức Chính
+
+### 3.1. Thuộc Tính
+
+- **Text (`text`):** Văn bản hiển thị trên `JRadioButtonMenuItem`.
+
+  ```java
+  lightThemeItem.setText("Light Theme");
+  ```
+
+- **Selected (`selected`):** Trạng thái được chọn hoặc không của `JRadioButtonMenuItem`.
+
+  ```java
+  lightThemeItem.setSelected(true); // Được chọn
+  ```
+
+- **Icon (`icon`):** Biểu tượng hiển thị bên cạnh văn bản `JRadioButtonMenuItem`.
+
+  ```java
+  lightThemeItem.setIcon(new ImageIcon("path/to/icon.png"));
+  ```
+
+- **Enabled (`enabled`):** Xác định xem `JRadioButtonMenuItem` có thể tương tác hay không.
+
+  ```java
+  lightThemeItem.setEnabled(false); // Không thể tương tác
+  ```
+
+### 3.2. Phương Thức
+
+- **`setSelected(boolean b)`**: Đặt trạng thái đã chọn cho `JRadioButtonMenuItem`.
+
+  ```java
+  lightThemeItem.setSelected(true);
+  ```
+
+- **`isSelected()`**: Kiểm tra xem `JRadioButtonMenuItem` có đang được chọn không.
+
+  ```java
+  boolean isSelected = lightThemeItem.isSelected();
+  ```
+
+- **`setIcon(Icon icon)`**: Đặt biểu tượng cho `JRadioButtonMenuItem`.
+
+  ```java
+  lightThemeItem.setIcon(new ImageIcon("path/to/icon.png"));
+  ```
+
+- **`addActionListener(ActionListener l)`**: Thêm một `ActionListener` để xử lý sự kiện khi người dùng thay đổi trạng thái của `JRadioButtonMenuItem`.
+
+  ```java
+  lightThemeItem.addActionListener(e -> System.out.println("Light theme selected"));
+  ```
+
+---
+
+## 4. Xử Lý Sự Kiện
+
+### 4.1. Sử Dụng `ActionListener`
+
+Bạn có thể sử dụng `ActionListener` để xử lý các sự kiện khi người dùng chọn `JRadioButtonMenuItem`. `ActionEvent` sẽ được kích hoạt mỗi khi trạng thái của `JRadioButtonMenuItem` thay đổi.
+
+```java
+import javax.swing.*;
+import java.awt.event.*;
+
+public class JRadioButtonMenuItemActionListenerExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JRadioButtonMenuItem ActionListener Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JMenuBar menuBar = new JMenuBar();
+        JMenu themeMenu = new JMenu("Theme");
+        
+        JRadioButtonMenuItem lightThemeItem = new JRadioButtonMenuItem("Light Theme");
+        JRadioButtonMenuItem darkThemeItem = new JRadioButtonMenuItem("Dark Theme");
+        
+        // Tạo ButtonGroup để chỉ có thể chọn một mục tại một thời điểm
+        ButtonGroup themeGroup = new ButtonGroup();
+        themeGroup.add(lightThemeItem);
+        themeGroup.add(darkThemeItem);
+        
+        lightThemeItem.setSelected(true);
+        
+        // Thêm ActionListener để xử lý sự kiện khi trạng thái thay đổi
+        lightThemeItem.addActionListener(e -> System.out
+
+.println("Light theme selected"));
+        darkThemeItem.addActionListener(e -> System.out.println("Dark theme selected"));
+        
+        themeMenu.add(lightThemeItem);
+        themeMenu.add(darkThemeItem);
+        menuBar.add(themeMenu);
+        
+        frame.setJMenuBar(menuBar);
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 5. Tùy Biến `JRadioButtonMenuItem`
+
+`JRadioButtonMenuItem` hỗ trợ các tùy chỉnh giao diện như đặt biểu tượng, màu sắc, và font chữ để làm cho nó phù hợp với thiết kế tổng thể của ứng dụng.
+
+```java
+// Đặt màu nền và màu văn bản
+lightThemeItem.setBackground(Color.LIGHT_GRAY);
+lightThemeItem.setForeground(Color.BLUE);
+
+// Đặt font chữ
+lightThemeItem.setFont(new Font("Arial", Font.PLAIN, 14));
+
+// Đặt biểu tượng
+lightThemeItem.setIcon(new ImageIcon("path/to/icon.png"));
+```
+
+---
+
+## 6. Ví Dụ Minh Họa
+
+### 6.1. Ví Dụ 1: Tạo `JRadioButtonMenuItem` Cơ Bản
+
+```java
+import javax.swing.*;
+
+public class BasicJRadioButtonMenuItemExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic JRadioButtonMenuItem Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JMenuBar menuBar = new JMenuBar();
+        JMenu viewMenu = new JMenu("View");
+
+        JRadioButtonMenuItem lightThemeItem = new JRadioButtonMenuItem("Light Theme");
+        JRadioButtonMenuItem darkThemeItem = new JRadioButtonMenuItem("Dark Theme");
+
+        ButtonGroup themeGroup = new ButtonGroup();
+        themeGroup.add(lightThemeItem);
+        themeGroup.add(darkThemeItem);
+        
+        lightThemeItem.setSelected(true);
+
+        viewMenu.add(lightThemeItem);
+        viewMenu.add(darkThemeItem);
+        menuBar.add(viewMenu);
+        
+        frame.setJMenuBar(menuBar);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Ví Dụ 2: Thêm `JRadioButtonMenuItem` Vào `JPopupMenu`
+
+```java
+import javax.swing.*;
+import java.awt.event.*;
+
+public class JRadioButtonMenuItemInPopupMenuExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JRadioButtonMenuItem in JPopupMenu Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu with radio buttons.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JRadioButtonMenuItem option1 = new JRadioButtonMenuItem("Option 1");
+        JRadioButtonMenuItem option2 = new JRadioButtonMenuItem("Option 2");
+        JRadioButtonMenuItem option3 = new JRadioButtonMenuItem("Option 3");
+        
+        ButtonGroup optionsGroup = new ButtonGroup();
+        optionsGroup.add(option1);
+        optionsGroup.add(option2);
+        optionsGroup.add(option3);
+        
+        option1.setSelected(true);
+        
+        popupMenu.add(option1);
+        popupMenu.add(option2);
+        popupMenu.add(option3);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. Kết Luận
+
+`JRadioButtonMenuItem` là một thành phần hữu ích trong Swing, cho phép bạn tạo các tùy chọn chọn đơn trong menu. Với khả năng tùy biến linh hoạt và tích hợp tốt với `JMenu` và `JPopupMenu`, `JRadioButtonMenuItem` là lựa chọn phù hợp cho các tình huống yêu cầu lựa chọn duy nhất.
+
+**Một số lưu ý cuối:**
+
+- **Sử dụng ButtonGroup:** Để đảm bảo chỉ có một `JRadioButtonMenuItem` được chọn trong một nhóm, luôn sử dụng `ButtonGroup`.
+- **Xử lý sự kiện:** Sử dụng `ActionListener` để xử lý sự kiện khi người dùng thay đổi trạng thái của `JRadioButtonMenuItem`.
+- **Tùy biến giao diện:** Thay đổi màu sắc, font chữ, và biểu tượng để làm cho `JRadioButtonMenuItem` phù hợp với thiết kế tổng thể của ứng dụng.
+- **Sử dụng linh hoạt:** `JRadioButtonMenuItem` có thể được sử dụng cho các tính năng như lựa chọn chủ đề, chế độ hiển thị, và các tùy chọn cài đặt khác, giúp người dùng dễ dàng tùy chỉnh ứng dụng theo ý thích.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JRadioButtonMenuItem` và cách sử dụng nó trong các ứng dụng Swing của mình.
