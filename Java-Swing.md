@@ -16127,3 +16127,311 @@ public class DynamicJPopupMenuDemo {
 - **Accessibility:** Đảm bảo rằng `JPopupMenu` hỗ trợ đầy đủ các tính năng truy cập, như hỗ trợ phím tắt và khả năng đọc màn hình, để phục vụ cho tất cả người dùng.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JPopupMenu` và cách sử dụng nó trong các ứng dụng Swing của mình. Bằng cách nắm vững các kiến thức cơ bản và nâng cao về `JPopupMenu`, bạn có thể xây dựng các giao diện người dùng chuyên nghiệp, linh hoạt và hiệu quả, đáp ứng tốt các yêu cầu của ứng dụng.
+
+---
+
+# JCheckBoxMenuItem
+
+`JCheckBoxMenuItem` là một thành phần giao diện người dùng trong thư viện Swing của Java, được sử dụng để tạo ra các mục menu dưới dạng checkbox. Nó cho phép người dùng chọn hoặc bỏ chọn các tùy chọn trong menu, rất hữu ích khi bạn muốn người dùng có thể kích hoạt hoặc vô hiệu hóa một tính năng cụ thể trong ứng dụng. `JCheckBoxMenuItem` thường được sử dụng trong các menu dạng `JMenu` hoặc `JPopupMenu`.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Tạo và Sử Dụng `JCheckBoxMenuItem`](#2-tạo-va-sử-dụng-jcheckboxmenuitem)
+   1. [Tạo `JCheckBoxMenuItem`](#21-tạo-jcheckboxmenuitem)
+   2. [Thiết Lập Thuộc Tính](#22-thiết-lập-thuộc-tính)
+   3. [Thêm `JCheckBoxMenuItem` Vào `JMenu` hoặc `JPopupMenu`](#23-thêm-jcheckboxmenuitem-vào-jmenu-hoặc-jpopupmenu)
+3. [Thuộc Tính và Phương Thức Chính](#3-thuộc-tính-và-phương-thức-chính)
+   1. [Thuộc Tính](#31-thuộc-tính)
+   2. [Phương Thức](#32-phương-thức)
+4. [Xử Lý Sự Kiện](#4-xử-lý-sự-kiện)
+   1. [Sử Dụng `ActionListener`](#41-sử-dụng-actionlistener)
+5. [Tùy Biến `JCheckBoxMenuItem`](#5-tùy-biến-jcheckboxmenuitem)
+6. [Ví Dụ Minh Họa](#6-vi-du-minh-hoa)
+   1. [Ví Dụ 1: Tạo `JCheckBoxMenuItem` Cơ Bản](#61-vi-du-1-tạo-jcheckboxmenuitem-cơ-bản)
+   2. [Ví Dụ 2: Thêm `JCheckBoxMenuItem` Vào `JPopupMenu`](#62-vi-du-2-thêm-jcheckboxmenuitem-vào-jpopupmenu)
+7. [Kết Luận](#7-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`JCheckBoxMenuItem` là một thành phần trong Swing được thiết kế dưới dạng checkbox trong các menu. Nó giúp tạo ra các tùy chọn mà người dùng có thể bật hoặc tắt trong giao diện menu, phù hợp để kích hoạt hoặc vô hiệu hóa các tính năng như "Hiển thị thanh công cụ," "Chế độ tối," "Bật thông báo," v.v.
+
+**Đặc điểm chính:**
+
+- **Checkbox trong menu:** Hiển thị dưới dạng mục menu có thể chọn hoặc bỏ chọn.
+- **Tích hợp với `JMenu` và `JPopupMenu`:** Thường được sử dụng trong các menu chính hoặc menu ngữ cảnh.
+- **Sử dụng linh hoạt:** Hữu ích cho các tùy chọn mà người dùng có thể bật/tắt.
+
+---
+
+## 2. Tạo và Sử Dụng `JCheckBoxMenuItem`
+
+### 2.1. Tạo `JCheckBoxMenuItem`
+
+Để tạo một `JCheckBoxMenuItem`, bạn cần khởi tạo đối tượng `JCheckBoxMenuItem` với tên của tùy chọn. Bạn cũng có thể thiết lập trạng thái mặc định của nó (được chọn hoặc không được chọn).
+
+```java
+import javax.swing.*;
+
+public class JCheckBoxMenuItemExample {
+    public static void main(String[] args) {
+        // Tạo JCheckBoxMenuItem với tên
+        JCheckBoxMenuItem showToolbarItem = new JCheckBoxMenuItem("Show Toolbar");
+        
+        // Đặt trạng thái mặc định là được chọn
+        showToolbarItem.setSelected(true);
+    }
+}
+```
+
+### 2.2. Thiết Lập Thuộc Tính
+
+Bạn có thể thiết lập các thuộc tính của `JCheckBoxMenuItem` như trạng thái chọn, biểu tượng, và phím tắt.
+
+```java
+// Đặt trạng thái mặc định là không được chọn
+showToolbarItem.setSelected(false);
+
+// Đặt biểu tượng cho JCheckBoxMenuItem
+showToolbarItem.setIcon(new ImageIcon("path/to/icon.png"));
+```
+
+### 2.3. Thêm `JCheckBoxMenuItem` Vào `JMenu` hoặc `JPopupMenu`
+
+`JCheckBoxMenuItem` thường được sử dụng trong `JMenu` hoặc `JPopupMenu`. Bạn có thể thêm `JCheckBoxMenuItem` vào các thành phần này để cung cấp cho người dùng các tùy chọn bật/tắt.
+
+```java
+import javax.swing.*;
+
+public class JMenuWithJCheckBoxMenuItem {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JCheckBoxMenuItem in JMenu Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JMenuBar menuBar = new JMenuBar();
+        JMenu viewMenu = new JMenu("View");
+        
+        JCheckBoxMenuItem showToolbarItem = new JCheckBoxMenuItem("Show Toolbar");
+        JCheckBoxMenuItem showStatusBarItem = new JCheckBoxMenuItem("Show Status Bar");
+        
+        // Thêm JCheckBoxMenuItem vào JMenu
+        viewMenu.add(showToolbarItem);
+        viewMenu.add(showStatusBarItem);
+        
+        menuBar.add(viewMenu);
+        frame.setJMenuBar(menuBar);
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 3. Thuộc Tính và Phương Thức Chính
+
+### 3.1. Thuộc Tính
+
+- **Text (`text`):** Văn bản hiển thị trên `JCheckBoxMenuItem`.
+  
+  ```java
+  showToolbarItem.setText("Show Toolbar");
+  ```
+
+- **Selected (`selected`):** Trạng thái được chọn hoặc không của `JCheckBoxMenuItem`.
+
+  ```java
+  showToolbarItem.setSelected(true); // Được chọn
+  ```
+
+- **Icon (`icon`):** Biểu tượng hiển thị bên cạnh văn bản `JCheckBoxMenuItem`.
+
+  ```java
+  showToolbarItem.setIcon(new ImageIcon("path/to/icon.png"));
+  ```
+
+- **Enabled (`enabled`):** Xác định xem `JCheckBoxMenuItem` có thể tương tác hay không.
+
+  ```java
+  showToolbarItem.setEnabled(false); // Không thể tương tác
+  ```
+
+### 3.2. Phương Thức
+
+- **`setSelected(boolean b)`**: Đặt trạng thái đã chọn cho `JCheckBoxMenuItem`.
+
+  ```java
+  showToolbarItem.setSelected(true);
+  ```
+
+- **`isSelected()`**: Kiểm tra xem `JCheckBoxMenuItem` có đang được chọn không.
+
+  ```java
+  boolean isSelected = showToolbarItem.isSelected();
+  ```
+
+- **`setIcon(Icon icon)`**: Đặt biểu tượng cho `JCheckBoxMenuItem`.
+
+  ```java
+  showToolbarItem.setIcon(new ImageIcon("path/to/icon.png"));
+  ```
+
+- **`addActionListener(ActionListener l)`**: Thêm một `ActionListener` để xử lý sự kiện khi người dùng thay đổi trạng thái của `JCheckBoxMenuItem`.
+
+  ```java
+  showToolbarItem.addActionListener(e -> System.out.println("Toolbar visibility toggled"));
+  ```
+
+---
+
+## 4. Xử Lý Sự Kiện
+
+### 4.1. Sử Dụng `ActionListener`
+
+Bạn có thể sử dụng `ActionListener` để xử lý các sự kiện khi người dùng chọn hoặc bỏ chọn `JCheckBoxMenuItem`. `ActionEvent` sẽ được kích hoạt mỗi khi trạng thái của `JCheckBoxMenuItem` thay đổi.
+
+```java
+import javax.swing.*;
+import java.awt.event.*;
+
+public class JCheckBoxMenuItemActionListenerExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JCheckBoxMenuItem ActionListener Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JMenuBar menuBar = new JMenuBar();
+        JMenu viewMenu = new JMenu("View");
+        
+        JCheckBoxMenuItem showToolbarItem = new JCheckBoxMenuItem("Show Toolbar");
+        showToolbarItem.setSelected(true);
+        
+        // Thêm ActionListener để xử lý sự kiện khi trạng thái thay đổi
+        showToolbarItem.addActionListener(e -> {
+            if (showToolbarItem.isSelected()) {
+                System.out.println("Toolbar is shown");
+            } else {
+                System.out.println("Toolbar is hidden");
+            }
+        });
+        
+        viewMenu.add(showToolbarItem);
+        menuBar.add(viewMenu);
+        
+        frame.setJMenuBar(menuBar);
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 5. Tùy Biến `JCheckBoxMenuItem`
+
+`JCheckBoxMenuItem` hỗ trợ các tùy chỉnh giao diện như đặt biểu tượng, màu sắc, và font chữ để làm cho nó phù hợp với thiết kế tổng thể của ứng dụng.
+
+```java
+// Đặt màu nền và màu văn bản
+showToolbarItem.setBackground(Color.LIGHT_GRAY);
+showToolbarItem.setForeground(Color.BLUE);
+
+// Đặt font chữ
+showToolbarItem.setFont(new Font("Arial", Font.PLAIN, 14));
+
+// Đặt biểu tượng
+showToolbarItem.setIcon(new ImageIcon("
+
+path/to/icon.png"));
+```
+
+---
+
+## 6. Ví Dụ Minh Họa
+
+### 6.1. Ví Dụ 1: Tạo `JCheckBoxMenuItem` Cơ Bản
+
+```java
+import javax.swing.*;
+
+public class BasicJCheckBoxMenuItemExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic JCheckBoxMenuItem Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JMenuBar menuBar = new JMenuBar();
+        JMenu settingsMenu = new JMenu("Settings");
+        
+        JCheckBoxMenuItem darkModeItem = new JCheckBoxMenuItem("Enable Dark Mode");
+        
+        settingsMenu.add(darkModeItem);
+        menuBar.add(settingsMenu);
+        
+        frame.setJMenuBar(menuBar);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Ví Dụ 2: Thêm `JCheckBoxMenuItem` Vào `JPopupMenu`
+
+```java
+import javax.swing.*;
+import java.awt.event.*;
+
+public class JCheckBoxMenuItemInPopupMenuExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JCheckBoxMenuItem in JPopupMenu Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu with check boxes.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JCheckBoxMenuItem boldItem = new JCheckBoxMenuItem("Bold");
+        JCheckBoxMenuItem italicItem = new JCheckBoxMenuItem("Italic");
+        
+        boldItem.addActionListener(e -> {
+            if (boldItem.isSelected()) {
+                System.out.println("Bold enabled");
+            } else {
+                System.out.println("Bold disabled");
+            }
+        });
+        
+        italicItem.addActionListener(e -> {
+            if (italicItem.isSelected()) {
+                System.out.println("Italic enabled");
+            } else {
+                System.out.println("Italic disabled");
+            }
+        });
+        
+        popupMenu.add(boldItem);
+        popupMenu.add(italicItem);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. Kết Luận
+
+`JCheckBoxMenuItem` là một thành phần hữu ích trong Swing, cho phép bạn tạo các tùy chọn bật/tắt trong menu để người dùng có thể dễ dàng kích hoạt hoặc vô hiệu hóa một tính năng nào đó. Với khả năng tùy biến linh hoạt, `JCheckBoxMenuItem` có thể được sử dụng trong cả `JMenu` và `JPopupMenu`, phù hợp với nhiều loại ứng dụng khác nhau.
+
+**Một số lưu ý cuối:**
+
+- **Thiết lập trạng thái mặc định:** Đặt trạng thái mặc định (đã chọn hoặc không chọn) để phù hợp với tình huống ban đầu của ứng dụng.
+- **Xử lý sự kiện:** Sử dụng `ActionListener` để xử lý sự kiện khi người dùng thay đổi trạng thái của `JCheckBoxMenuItem`.
+- **Tùy biến giao diện:** Thay đổi màu sắc, font chữ, và biểu tượng để làm cho `JCheckBoxMenuItem` phù hợp với thiết kế tổng thể của ứng dụng.
+- **Sử dụng linh hoạt:** `JCheckBoxMenuItem` có thể được sử dụng cho các tính năng như "Bật thông báo," "Chế độ tối," "Hiển thị thanh công cụ," và nhiều hơn nữa, giúp người dùng dễ dàng tùy chỉnh ứng dụng theo ý thích.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JCheckBoxMenuItem` và cách sử dụng nó trong các ứng dụng Swing của mình.
