@@ -19029,3 +19029,234 @@ public class CustomBoxLayoutExample {
 - **Dễ dàng mở rộng:** `BoxLayout` cho phép bạn dễ dàng thêm các thành phần khác mà không ảnh hưởng đến bố cục chung.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `BoxLayout` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# CardLayout
+
+`CardLayout` là một layout manager trong thư viện Swing của Java, cho phép sắp xếp các thành phần trong một container thành các "thẻ" (cards) chồng lên nhau, chỉ hiển thị một thẻ tại một thời điểm. `CardLayout` hữu ích khi bạn muốn tạo giao diện có nhiều trang, màn hình hoặc chế độ khác nhau, như giao diện tab, trình hướng dẫn (wizard), hoặc các màn hình khác nhau của một ứng dụng.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc `CardLayout`](#2-cấu-trúc-cardlayout)
+3. [Tạo và Sử Dụng `CardLayout`](#3-tạo-và-sử-dụng-cardlayout)
+   1. [Thêm Các Thẻ vào `CardLayout`](#31-thêm-các-thẻ-vào-cardlayout)
+   2. [Chuyển Đổi Giữa Các Thẻ](#32-chuyển-đổi-giữa-các-thẻ)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+5. [Ví Dụ Minh Họa](#5-ví-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `CardLayout` Cơ Bản](#51-ví-dụ-1-tạo-cardlayout-cơ-bản)
+   2. [Ví Dụ 2: Chuyển Đổi Giữa Các Thẻ Bằng Nút](#52-ví-dụ-2-chuyển-đổi-giữa-các-thẻ-bằng-nút)
+6. [Kết Luận](#6-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`CardLayout` cho phép bạn sắp xếp các thành phần trong một container thành các "thẻ" chồng lên nhau, trong đó chỉ một thẻ được hiển thị tại một thời điểm. Người dùng có thể chuyển đổi giữa các thẻ theo yêu cầu. `CardLayout` đặc biệt hữu ích cho việc xây dựng giao diện có nhiều trang hoặc chế độ, nơi bạn muốn người dùng có thể dễ dàng chuyển đổi giữa các màn hình khác nhau.
+
+**Đặc điểm chính của `CardLayout`:**
+
+- **Tổ chức theo thẻ (card):** Các thành phần được sắp xếp thành từng thẻ, chỉ hiển thị một thẻ tại một thời điểm.
+- **Dễ dàng chuyển đổi giữa các thẻ:** Có thể chuyển đổi giữa các thẻ bằng cách gọi các phương thức như `next()`, `previous()`, `first()`, `last()`, và `show()`.
+- **Linh hoạt:** Thích hợp cho các ứng dụng yêu cầu nhiều màn hình hoặc chế độ khác nhau.
+
+---
+
+## 2. Cấu Trúc `CardLayout`
+
+`CardLayout` sắp xếp các thành phần thành một tập hợp các thẻ, và chỉ hiển thị một thẻ duy nhất trong container. Khi bạn thêm các thành phần vào `CardLayout`, bạn sẽ cung cấp một tên duy nhất cho mỗi thẻ, cho phép bạn dễ dàng xác định và chuyển đổi giữa các thẻ.
+
+---
+
+## 3. Tạo và Sử Dụng `CardLayout`
+
+### 3.1. Thêm Các Thẻ vào `CardLayout`
+
+Để sử dụng `CardLayout`, bạn cần thiết lập `CardLayout` cho một container như `JPanel`. Khi thêm các thành phần vào container, hãy cung cấp tên cho từng thẻ để có thể chuyển đổi dễ dàng giữa các thẻ.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class CardLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("CardLayout Example");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel cardPanel = new JPanel();
+        CardLayout cardLayout = new CardLayout();
+        cardPanel.setLayout(cardLayout);
+
+        // Tạo các thẻ
+        JPanel card1 = new JPanel();
+        card1.add(new JLabel("This is Card 1"));
+        JPanel card2 = new JPanel();
+        card2.add(new JLabel("This is Card 2"));
+        JPanel card3 = new JPanel();
+        card3.add(new JLabel("This is Card 3"));
+
+        // Thêm các thẻ vào CardLayout với tên duy nhất
+        cardPanel.add(card1, "Card 1");
+        cardPanel.add(card2, "Card 2");
+        cardPanel.add(card3, "Card 3");
+
+        frame.add(cardPanel);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 3.2. Chuyển Đổi Giữa Các Thẻ
+
+Bạn có thể chuyển đổi giữa các thẻ trong `CardLayout` bằng cách sử dụng các phương thức `next()`, `previous()`, `first()`, `last()`, và `show()`.
+
+```java
+// Chuyển sang thẻ tiếp theo
+cardLayout.next(cardPanel);
+
+// Quay lại thẻ trước đó
+cardLayout.previous(cardPanel);
+
+// Hiển thị thẻ đầu tiên
+cardLayout.first(cardPanel);
+
+// Hiển thị thẻ cuối cùng
+cardLayout.last(cardPanel);
+
+// Hiển thị thẻ theo tên
+cardLayout.show(cardPanel, "Card 2");
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+- **`next(Container parent)`**: Hiển thị thẻ tiếp theo. Nếu thẻ hiện tại là thẻ cuối cùng, nó sẽ quay lại thẻ đầu tiên.
+
+  ```java
+  cardLayout.next(cardPanel);
+  ```
+
+- **`previous(Container parent)`**: Hiển thị thẻ trước đó. Nếu thẻ hiện tại là thẻ đầu tiên, nó sẽ quay lại thẻ cuối cùng.
+
+  ```java
+  cardLayout.previous(cardPanel);
+  ```
+
+- **`first(Container parent)`**: Hiển thị thẻ đầu tiên.
+
+  ```java
+  cardLayout.first(cardPanel);
+  ```
+
+- **`last(Container parent)`**: Hiển thị thẻ cuối cùng.
+
+  ```java
+  cardLayout.last(cardPanel);
+  ```
+
+- **`show(Container parent, String name)`**: Hiển thị thẻ với tên cụ thể.
+
+  ```java
+  cardLayout.show(cardPanel, "Card 1");
+  ```
+
+---
+
+## 5. Ví Dụ Minh Họa
+
+### 5.1. Ví Dụ 1: Tạo `CardLayout` Cơ Bản
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class BasicCardLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic CardLayout Example");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel cardPanel = new JPanel();
+        CardLayout cardLayout = new CardLayout();
+        cardPanel.setLayout(cardLayout);
+
+        JPanel card1 = new JPanel();
+        card1.add(new JLabel("Card 1 Content"));
+        JPanel card2 = new JPanel();
+        card2.add(new JLabel("Card 2 Content"));
+
+        cardPanel.add(card1, "Card 1");
+        cardPanel.add(card2, "Card 2");
+
+        frame.add(cardPanel);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 5.2. Ví Dụ 2: Chuyển Đổi Giữa Các Thẻ Bằng Nút
+
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class CardLayoutWithButtonsExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("CardLayout with Buttons Example");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel cardPanel = new JPanel();
+        CardLayout cardLayout = new CardLayout();
+        cardPanel.setLayout(cardLayout);
+
+        JPanel card1 = new JPanel();
+        card1.add(new JLabel("This is Card 1"));
+        JPanel card2 = new JPanel();
+        card2.add(new JLabel("This is Card 2"));
+        JPanel card3 = new JPanel();
+        card3.add(new JLabel("This is Card 3"));
+
+        cardPanel.add(card1, "Card 1");
+        cardPanel.add(card2, "Card 2");
+        cardPanel.add(card3, "Card 3");
+
+        JPanel buttonPanel = new JPanel();
+        JButton nextButton = new JButton("Next");
+        JButton previousButton = new JButton("Previous");
+
+        nextButton.addActionListener(e -> cardLayout.next(cardPanel));
+        previousButton.addActionListener(e -> cardLayout.previous(cardPanel));
+
+        buttonPanel.add(previousButton);
+        buttonPanel.add(nextButton);
+
+        frame.setLayout(new BorderLayout());
+        frame.add(cardPanel, BorderLayout.CENTER);
+        frame.add(buttonPanel, BorderLayout.SOUTH);
+
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 6. Kết Luận
+
+`CardLayout` là một layout manager mạnh mẽ và tiện dụng, đặc biệt hữu ích cho các ứng dụng có nhiều màn hình hoặc chế độ khác nhau. Với `CardLayout`, bạn có thể dễ dàng sắp xếp các màn hình thành các thẻ và cho phép người dùng chuyển đổi qua lại một cách linh hoạt.
+
+**Một số lưu ý cuối:**
+
+- **Đặt tên duy nhất cho mỗi thẻ:** Sử dụng tên duy nhất để dễ dàng xác định và chuyển đổi giữa các thẻ.
+- **Sử dụng các phương thức điều hướng:** Các
+
+ phương thức như `next()`, `previous()`, `first()`, `last()`, và `show()` giúp bạn điều khiển `CardLayout` hiệu quả.
+- **Kết hợp với các thành phần điều hướng:** Sử dụng nút, menu, hoặc các thành phần điều hướng khác để giúp người dùng chuyển đổi giữa các thẻ.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `CardLayout` và cách sử dụng nó trong các ứng dụng Swing của mình.
