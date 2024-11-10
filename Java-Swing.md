@@ -18034,3 +18034,217 @@ public class JScrollPaneWithTextAreaExample {
 - **Đảm bảo tính thẩm mỹ và hiệu quả sử dụng:** Khi thêm nhiều thành phần con vào `JScrollPane`, hãy đảm bảo rằng nội dung được sắp xếp gọn gàng và dễ xem.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JScrollPane` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# JToolBar
+
+`JToolBar` là một thành phần trong thư viện Swing của Java, cung cấp một thanh công cụ chứa các nút bấm và thành phần giao diện khác, giúp người dùng dễ dàng truy cập nhanh các tính năng và thao tác chính của ứng dụng. Thanh công cụ thường được đặt ở đầu hoặc bên cạnh cửa sổ chính, và có thể kéo và di chuyển được, giúp nâng cao trải nghiệm người dùng.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc `JToolBar`](#2-cấu-trúc-jtoolbar)
+3. [Tạo và Sử Dụng `JToolBar`](#3-tạo-và-sử-dụng-jtoolbar)
+   1. [Tạo `JToolBar` Cơ Bản](#31-tạo-jtoolbar-cơ-bản)
+   2. [Thêm Nút vào `JToolBar`](#32-thêm-nút-vào-jtoolbar)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+5. [Tùy Biến `JToolBar`](#5-tùy-biến-jtoolbar)
+   1. [Thiết Lập Khả Năng Di Chuyển](#51-thiết-lập-khả-năng-di-chuyển)
+   2. [Đặt Vị Trí `JToolBar`](#52-đặt-vị-trí-jtoolbar)
+6. [Ví Dụ Minh Họa](#6-ví-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `JToolBar` Cơ Bản](#61-ví-dụ-1-tạo-jtoolbar-cơ-bản)
+   2. [Ví Dụ 2: `JToolBar` với Các Nút Có Biểu Tượng](#62-ví-dụ-2-jtoolbar-với-các-nút-có-biểu-tượng)
+7. [Kết Luận](#7-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`JToolBar` giúp tạo một thanh công cụ chứa các nút hoặc thành phần để người dùng truy cập nhanh các chức năng của ứng dụng. Thanh công cụ có thể chứa các nút (`JButton`), hộp văn bản (`JTextField`), hộp chọn (`JComboBox`), hoặc bất kỳ thành phần Swing nào. `JToolBar` thường được sử dụng cùng với `JFrame` để tạo ra các ứng dụng có giao diện người dùng thân thiện.
+
+**Đặc điểm chính của `JToolBar`:**
+
+- **Thanh công cụ chứa các nút và thành phần:** Giúp người dùng truy cập nhanh các chức năng chính.
+- **Di chuyển được:** `JToolBar` có thể được kéo ra khỏi vị trí cố định hoặc sắp xếp lại.
+- **Tùy chỉnh dễ dàng:** Có thể thay đổi vị trí, nội dung, và kiểu hiển thị.
+
+---
+
+## 2. Cấu Trúc `JToolBar`
+
+`JToolBar` là một container có thể chứa các thành phần khác nhau, thường là các nút hoặc công cụ thao tác nhanh, và có thể được di chuyển (dockable) vào bất kỳ vị trí nào của `JFrame` như trên, dưới, bên trái, hoặc bên phải.
+
+---
+
+## 3. Tạo và Sử Dụng `JToolBar`
+
+### 3.1. Tạo `JToolBar` Cơ Bản
+
+Để tạo một `JToolBar`, bạn chỉ cần khởi tạo một đối tượng của `JToolBar`. Sau đó, bạn có thể thêm các thành phần giao diện vào thanh công cụ.
+
+```java
+import javax.swing.*;
+
+public class JToolBarExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JToolBar Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JToolBar toolBar = new JToolBar();
+        frame.add(toolBar, BorderLayout.NORTH);
+
+        frame.setVisible(true);
+    }
+}
+```
+
+### 3.2. Thêm Nút vào `JToolBar`
+
+Bạn có thể thêm các nút (`JButton`) hoặc các thành phần khác vào `JToolBar`. Điều này giúp người dùng dễ dàng truy cập các chức năng quan trọng của ứng dụng.
+
+```java
+JButton saveButton = new JButton("Save");
+JButton openButton = new JButton("Open");
+
+toolBar.add(saveButton);
+toolBar.add(openButton);
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+- **`add(Component comp)`**: Thêm một thành phần vào `JToolBar`.
+
+  ```java
+  toolBar.add(new JButton("Save"));
+  ```
+
+- **`setFloatable(boolean b)`**: Đặt khả năng di chuyển của `JToolBar`. Khi `true`, thanh công cụ có thể được kéo đến các vị trí khác trong `JFrame`.
+
+  ```java
+  toolBar.setFloatable(true);
+  ```
+
+- **`setOrientation(int orientation)`**: Đặt hướng của `JToolBar`, có thể là `JToolBar.HORIZONTAL` hoặc `JToolBar.VERTICAL`.
+
+  ```java
+  toolBar.setOrientation(JToolBar.VERTICAL);
+  ```
+
+- **`addSeparator()`**: Thêm một khoảng cách hoặc đường ngăn cách giữa các thành phần của `JToolBar`.
+
+  ```java
+  toolBar.addSeparator();
+  ```
+
+- **`addSeparator(Dimension size)`**: Thêm một khoảng cách với kích thước xác định giữa các thành phần của `JToolBar`.
+
+  ```java
+  toolBar.addSeparator(new Dimension(10, 0));
+  ```
+
+---
+
+## 5. Tùy Biến `JToolBar`
+
+### 5.1. Thiết Lập Khả Năng Di Chuyển
+
+Bạn có thể kiểm soát khả năng di chuyển của `JToolBar`. Khi khả năng này được bật (`floatable`), người dùng có thể kéo thanh công cụ và đặt nó vào các vị trí khác trong cửa sổ.
+
+```java
+toolBar.setFloatable(true); // Cho phép di chuyển thanh công cụ
+```
+
+### 5.2. Đặt Vị Trí `JToolBar`
+
+Bạn có thể thay đổi vị trí của `JToolBar` trong `JFrame` bằng cách đặt nó ở `BorderLayout.NORTH`, `BorderLayout.SOUTH`, `BorderLayout.EAST`, hoặc `BorderLayout.WEST`.
+
+```java
+frame.add(toolBar, BorderLayout.NORTH);
+```
+
+---
+
+## 6. Ví Dụ Minh Họa
+
+### 6.1. Ví Dụ 1: Tạo `JToolBar` Cơ Bản
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class BasicJToolBarExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic JToolBar Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JToolBar toolBar = new JToolBar();
+        JButton saveButton = new JButton("Save");
+        JButton openButton = new JButton("Open");
+
+        toolBar.add(saveButton);
+        toolBar.add(openButton);
+        toolBar.addSeparator(); // Thêm khoảng cách
+        JButton closeButton = new JButton("Close");
+        toolBar.add(closeButton);
+
+        frame.add(toolBar, BorderLayout.NORTH);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Ví Dụ 2: `JToolBar` với Các Nút Có Biểu Tượng
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class IconJToolBarExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Icon JToolBar Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JToolBar toolBar = new JToolBar("Tools");
+        toolBar.setFloatable(false);
+
+        JButton saveButton = new JButton(new ImageIcon("save_icon.png"));
+        saveButton.setToolTipText("Save");
+
+        JButton openButton = new JButton(new ImageIcon("open_icon.png"));
+        openButton.setToolTipText("Open");
+
+        JButton closeButton = new JButton(new ImageIcon("close_icon.png"));
+        closeButton.setToolTipText("Close");
+
+        toolBar.add(saveButton);
+        toolBar.add(openButton);
+        toolBar.addSeparator(new Dimension(10, 0)); // Ngăn cách bằng khoảng cách
+        toolBar.add(closeButton);
+
+        frame.add(toolBar, BorderLayout.NORTH);
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. Kết Luận
+
+`JToolBar` là một thành phần hữu ích trong Swing, giúp bạn tạo một thanh công cụ chứa các nút và thành phần giao diện cho người dùng. `JToolBar` cải thiện trải nghiệm người dùng bằng cách cung cấp các thao tác nhanh và trực quan, đặc biệt hữu ích trong các ứng dụng có nhiều tính năng.
+
+**Một số lưu ý cuối:**
+
+- **Cân nhắc việc cho phép di chuyển:** Bật `setFloatable(true)` nếu bạn muốn người dùng có thể di chuyển thanh công cụ đến các vị trí khác.
+- **Sử dụng biểu tượng và tooltip:** Các biểu tượng và chú thích tooltip giúp người dùng nhận biết nhanh chức năng của các nút.
+- **Tổ chức hợp lý:** S
+
+ử dụng `addSeparator()` để phân tách các nhóm nút có chức năng liên quan, tạo giao diện trực quan hơn.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JToolBar` và cách sử dụng nó trong các ứng dụng Swing của mình.
