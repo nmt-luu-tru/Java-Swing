@@ -18436,3 +18436,189 @@ public class CustomBorderLayoutExample {
 - **Thứ tự thêm các thành phần:** Mỗi vùng chỉ có thể chứa một thành phần. Nếu bạn thêm nhiều thành phần vào cùng một vùng, thành phần trước sẽ bị thay thế.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `BorderLayout` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# GridLayout
+
+`GridLayout` là một layout manager trong thư viện Swing của Java, giúp sắp xếp các thành phần trong một container thành một lưới các ô có kích thước bằng nhau. `GridLayout` hữu ích khi bạn cần tổ chức các thành phần thành các hàng và cột đều nhau, chẳng hạn như bảng số liệu, bàn phím, lưới các nút, v.v.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc `GridLayout`](#2-cấu-trúc-gridlayout)
+3. [Tạo và Sử Dụng `GridLayout`](#3-tạo-và-sử-dụng-gridlayout)
+   1. [Thiết Lập `GridLayout`](#31-thiết-lập-gridlayout)
+   2. [Thêm Thành Phần vào `GridLayout`](#32-thêm-thành-phần-vào-gridlayout)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+5. [Tùy Biến `GridLayout`](#5-tùy-biến-gridlayout)
+   1. [Thiết Lập Khoảng Cách Giữa Các Ô](#51-thiết-lập-khoảng-cách-giữa-các-ô)
+6. [Ví Dụ Minh Họa](#6-ví-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `GridLayout` Cơ Bản](#61-ví-dụ-1-tạo-gridlayout-cơ-bản)
+   2. [Ví Dụ 2: `GridLayout` với Khoảng Cách Giữa Các Ô](#62-ví-dụ-2-gridlayout-với-khoảng-cách-giữa-các-ô)
+7. [Kết Luận](#7-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`GridLayout` sắp xếp các thành phần trong một container thành một lưới với số hàng và số cột xác định. Mỗi thành phần sẽ có cùng kích thước với các thành phần khác trong lưới. Khi kích thước của container thay đổi, các ô của lưới cũng sẽ tự động thay đổi kích thước để phù hợp với không gian mới.
+
+**Đặc điểm chính của `GridLayout`:**
+
+- **Sắp xếp thành lưới đều:** Các thành phần được sắp xếp trong một lưới với số hàng và số cột xác định.
+- **Kích thước ô đồng đều:** Tất cả các ô có cùng kích thước, điều chỉnh theo kích thước của container.
+- **Dễ dàng thiết lập:** Chỉ cần chỉ định số hàng và số cột, các thành phần sẽ tự động sắp xếp.
+
+---
+
+## 2. Cấu Trúc `GridLayout`
+
+`GridLayout` chia container thành một lưới có kích thước bằng nhau, với số hàng và số cột cụ thể:
+
+- **Số hàng (`rows`)**: Số hàng trong lưới. Nếu đặt là 0, số hàng sẽ tự động điều chỉnh để phù hợp với số thành phần.
+- **Số cột (`columns`)**: Số cột trong lưới. Nếu đặt là 0, số cột sẽ tự động điều chỉnh để phù hợp với số thành phần.
+
+Khi thêm một thành phần vào `GridLayout`, các thành phần sẽ được thêm vào từ trái qua phải, từ trên xuống dưới, giống như khi điền các ô trong bảng.
+
+---
+
+## 3. Tạo và Sử Dụng `GridLayout`
+
+### 3.1. Thiết Lập `GridLayout`
+
+Bạn có thể tạo một `GridLayout` với số hàng và cột tùy ý. Khi một trong hai thông số là 0, `GridLayout` sẽ tự động điều chỉnh để phù hợp với số thành phần trong container.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class GridLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("GridLayout Example");
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setLayout(new GridLayout(2, 3)); // Lưới 2 hàng, 3 cột
+
+        frame.setVisible(true);
+    }
+}
+```
+
+### 3.2. Thêm Thành Phần vào `GridLayout`
+
+Khi bạn thêm các thành phần vào container sử dụng `GridLayout`, chúng sẽ tự động sắp xếp từ trái sang phải, từ trên xuống dưới, theo thứ tự mà chúng được thêm vào.
+
+```java
+frame.add(new JButton("Button 1"));
+frame.add(new JButton("Button 2"));
+frame.add(new JButton("Button 3"));
+frame.add(new JButton("Button 4"));
+frame.add(new JButton("Button 5"));
+frame.add(new JButton("Button 6"));
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+- **`GridLayout(int rows, int cols)`**: Khởi tạo `GridLayout` với số hàng và số cột xác định.
+
+  ```java
+  frame.setLayout(new GridLayout(2, 3)); // 2 hàng và 3 cột
+  ```
+
+- **`GridLayout(int rows, int cols, int hgap, int vgap)`**: Khởi tạo `GridLayout` với số hàng, số cột và khoảng cách giữa các ô.
+
+  ```java
+  frame.setLayout(new GridLayout(2, 3, 5, 5)); // 2 hàng, 3 cột, khoảng cách ngang và dọc là 5
+  ```
+
+- **`setHgap(int hgap)`**: Đặt khoảng cách ngang giữa các ô.
+
+  ```java
+  gridLayout.setHgap(10);
+  ```
+
+- **`setVgap(int vgap)`**: Đặt khoảng cách dọc giữa các ô.
+
+  ```java
+  gridLayout.setVgap(10);
+  ```
+
+---
+
+## 5. Tùy Biến `GridLayout`
+
+### 5.1. Thiết Lập Khoảng Cách Giữa Các Ô
+
+Bạn có thể thiết lập khoảng cách giữa các ô trong lưới bằng cách sử dụng `hgap` và `vgap`, giúp tăng tính thẩm mỹ và dễ nhìn cho giao diện.
+
+```java
+frame.setLayout(new GridLayout(3, 2, 10, 10)); // 3 hàng, 2 cột, khoảng cách ngang và dọc là 10
+```
+
+---
+
+## 6. Ví Dụ Minh Họa
+
+### 6.1. Ví Dụ 1: Tạo `GridLayout` Cơ Bản
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class BasicGridLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic GridLayout Example");
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setLayout(new GridLayout(2, 3)); // 2 hàng, 3 cột
+
+        for (int i = 1; i <= 6; i++) {
+            frame.add(new JButton("Button " + i));
+        }
+
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Ví Dụ 2: `GridLayout` với Khoảng Cách Giữa Các Ô
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class CustomGridLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Custom GridLayout Example");
+        frame.setSize(300, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setLayout(new GridLayout(2, 3, 10, 10)); // 2 hàng, 3 cột, khoảng cách ngang và dọc là 10
+
+        for (int i = 1; i <= 6; i++) {
+            frame.add(new JButton("Button " + i));
+        }
+
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. Kết Luận
+
+`GridLayout` là một layout manager tiện lợi và dễ sử dụng, giúp sắp xếp các thành phần trong một lưới các ô có kích thước bằng nhau. `GridLayout` thích hợp cho các ứng dụng cần sắp xếp các thành phần theo cấu trúc đều đặn và cân đối, chẳng hạn như tạo bảng điều khiển hoặc lưới các nút.
+
+**Một số lưu ý cuối:**
+
+- **Sử dụng đúng số hàng và cột:** Đặt số hàng và số cột phù hợp với yêu cầu của giao diện để tránh mất cân đối.
+- **Khoảng cách giữa các ô:** Sử dụng `hgap` và `vgap` để tạo khoảng cách giữa các ô, tăng tính thẩm mỹ cho giao diện.
+- **Kích thước container:** `GridLayout` tự động thay đổi kích thước các ô dựa trên kích thước container, vì vậy hãy đảm bảo container có kích thước phù hợp.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `GridLayout` và cách sử dụng nó trong các ứng dụng Swing của mình.
