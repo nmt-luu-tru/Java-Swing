@@ -17111,3 +17111,280 @@ public class LayoutJPanelExample {
 - **Tùy biến giao diện:** Tùy chỉnh màu sắc, đường viền, và kích thước để phù hợp với thiết kế tổng thể.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JPanel` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# JDialog
+
+`JDialog` là một thành phần trong thư viện Swing của Java, cho phép tạo các hộp thoại (dialog) để hiển thị thông tin, nhận phản hồi từ người dùng, hoặc thực hiện các thao tác khác. `JDialog` thường được sử dụng để hiển thị các cửa sổ nhỏ, không phải là cửa sổ chính, và có thể là cửa sổ mô-đun hoặc không mô-đun tùy theo yêu cầu. 
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc và Các Tùy Chọn `JDialog`](#2-cấu-trúc-và-các-tùy-chọn-jdialog)
+   1. [Loại Mô-đun (Modal) và Không Mô-đun](#21-loại-mô-đun-modal-và-không-mô-đun)
+3. [Tạo và Sử Dụng `JDialog`](#3-tạo-và-sử-dụng-jdialog)
+   1. [Tạo `JDialog` Cơ Bản](#31-tạo-jdialog-cơ-bản)
+   2. [Thiết Lập Thuộc Tính](#32-thiết-lập-thuộc-tính)
+   3. [Thêm Thành Phần Vào `JDialog`](#33-thêm-thành-phần-vào-jdialog)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+   1. [Thuộc Tính](#41-thuộc-tính)
+   2. [Phương Thức](#42-phương-thức)
+5. [Xử Lý Sự Kiện](#5-xử-lý-sự-kiện)
+6. [Các Loại Hộp Thoại Thường Gặp](#6-các-loại-hộp-thoại-thường-gặp)
+   1. [Hộp Thoại Xác Nhận (Confirmation Dialog)](#61-hộp-thoại-xác-nhận-confirmation-dialog)
+   2. [Hộp Thoại Nhập Liệu (Input Dialog)](#62-hộp-thoại-nhập-liệu-input-dialog)
+7. [Ví Dụ Minh Họa](#7-vi-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `JDialog` Cơ Bản](#71-vi-du-1-tạo-jdialog-cơ-bản)
+   2. [Ví Dụ 2: Hộp Thoại Xác Nhận](#72-vi-du-2-hộp-thoại-xác-nhận)
+   3. [Ví Dụ 3: Hộp Thoại Nhập Liệu](#73-vi-du-3-hộp-thoại-nhập-liệu)
+8. [Kết Luận](#8-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`JDialog` là một cửa sổ hộp thoại trong Swing, cho phép hiển thị các thông báo, xác nhận, hoặc thu thập dữ liệu từ người dùng. Hộp thoại có thể ở dạng mô-đun hoặc không mô-đun, có nghĩa là:
+
+- **Mô-đun (Modal):** Người dùng phải hoàn tất thao tác với hộp thoại này trước khi có thể quay lại cửa sổ chính.
+- **Không Mô-đun (Non-Modal):** Người dùng có thể tương tác với cả hộp thoại và cửa sổ chính cùng lúc.
+
+---
+
+## 2. Cấu Trúc và Các Tùy Chọn `JDialog`
+
+### 2.1. Loại Mô-đun (Modal) và Không Mô-đun
+
+Trong `JDialog`, bạn có thể thiết lập hộp thoại là mô-đun (modal) hoặc không mô-đun (non-modal) thông qua phương thức `setModal()`.
+
+```java
+// Tạo hộp thoại mô-đun
+JDialog dialog = new JDialog();
+dialog.setModal(true); // Thiết lập mô-đun
+```
+
+- **Mô-đun (Modal):** Khi hộp thoại mô-đun mở, người dùng phải hoàn tất hộp thoại này trước khi có thể tương tác với các cửa sổ khác của ứng dụng.
+- **Không Mô-đun (Non-Modal):** Cho phép người dùng tiếp tục tương tác với các cửa sổ khác ngay cả khi hộp thoại đang mở.
+
+---
+
+## 3. Tạo và Sử Dụng `JDialog`
+
+### 3.1. Tạo `JDialog` Cơ Bản
+
+Để tạo một `JDialog`, bạn có thể khởi tạo đối tượng `JDialog` bằng cách chỉ định một cửa sổ cha (`JFrame` hoặc `JDialog`) và tiêu đề.
+
+```java
+import javax.swing.*;
+
+public class JDialogExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Main Window");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JDialog dialog = new JDialog(frame, "Dialog Example", true); // Tạo hộp thoại mô-đun
+        dialog.setSize(200, 150);
+        dialog.setLocationRelativeTo(frame);
+
+        frame.setVisible(true);
+        dialog.setVisible(true);
+    }
+}
+```
+
+### 3.2. Thiết Lập Thuộc Tính
+
+Bạn có thể thiết lập các thuộc tính của `JDialog` như kích thước, vị trí, khả năng thay đổi kích thước, và các thuộc tính hiển thị khác.
+
+```java
+dialog.setSize(300, 200);                 // Đặt kích thước
+dialog.setLocationRelativeTo(frame);       // Đặt vị trí trung tâm so với JFrame chính
+dialog.setResizable(false);                // Không cho phép thay đổi kích thước
+```
+
+### 3.3. Thêm Thành Phần Vào `JDialog`
+
+Giống như `JFrame`, bạn có thể thêm các thành phần như `JButton`, `JLabel`, `JTextField`, v.v., vào `JDialog`.
+
+```java
+JButton okButton = new JButton("OK");
+dialog.add(okButton);
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+### 4.1. Thuộc Tính
+
+- **Modal (`modal`):** Xác định liệu `JDialog` là mô-đun hay không mô-đun.
+- **Title (`title`):** Đặt tiêu đề cho hộp thoại.
+- **Resizable (`resizable`):** Cho phép hoặc không cho phép thay đổi kích thước hộp thoại.
+
+### 4.2. Phương Thức
+
+- **`setModal(boolean modal)`**: Đặt `JDialog` là mô-đun hoặc không mô-đun.
+
+  ```java
+  dialog.setModal(true);
+  ```
+
+- **`setTitle(String title)`**: Đặt tiêu đề cho `JDialog`.
+
+  ```java
+  dialog.setTitle("My Dialog");
+  ```
+
+- **`setSize(int width, int height)`**: Đặt kích thước cho `JDialog`.
+
+  ```java
+  dialog.setSize(300, 200);
+  ```
+
+- **`setLocationRelativeTo(Component c)`**: Đặt vị trí của `JDialog` tương đối với một thành phần khác.
+
+  ```java
+  dialog.setLocationRelativeTo(frame);
+  ```
+
+- **`dispose()`**: Đóng `JDialog`.
+
+  ```java
+  dialog.dispose();
+  ```
+
+---
+
+## 5. Xử Lý Sự Kiện
+
+`JDialog` có thể xử lý các sự kiện người dùng, như nhấp chuột vào nút, nhập văn bản, hoặc thay đổi lựa chọn. Bạn có thể thêm `ActionListener` hoặc các listener khác vào các thành phần trong `JDialog`.
+
+```java
+JButton closeButton = new JButton("Close");
+closeButton.addActionListener(e -> dialog.dispose());
+dialog.add(closeButton);
+```
+
+---
+
+## 6. Các Loại Hộp Thoại Thường Gặp
+
+### 6.1. Hộp Thoại Xác Nhận (Confirmation Dialog)
+
+Hộp thoại xác nhận thường được sử dụng để yêu cầu người dùng xác nhận hành động, ví dụ: "Bạn có chắc chắn muốn thoát không?"
+
+```java
+int result = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit?", 
+                                           "Confirmation", JOptionPane.YES_NO_OPTION);
+if (result == JOptionPane.YES_OPTION) {
+    System.exit(0);
+}
+```
+
+### 6.2. Hộp Thoại Nhập Liệu (Input Dialog)
+
+Hộp thoại nhập liệu được sử dụng để thu thập thông tin từ người dùng.
+
+```java
+String name = JOptionPane.showInputDialog(frame, "Enter your name:");
+if (name != null) {
+    System.out.println("User's name: " + name);
+}
+```
+
+---
+
+## 7. Ví Dụ Minh Họa
+
+### 7.1. Ví Dụ 1: Tạo `JDialog` Cơ Bản
+
+```java
+import javax.swing.*;
+
+public class BasicJDialogExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Main
+
+ Window");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JDialog dialog = new JDialog(frame, "Basic Dialog", true);
+        dialog.setSize(200, 100);
+        dialog.setLocationRelativeTo(frame);
+
+        JButton closeButton = new JButton("Close");
+        closeButton.addActionListener(e -> dialog.dispose());
+        dialog.add(closeButton);
+
+        frame.setVisible(true);
+        dialog.setVisible(true);
+    }
+}
+```
+
+### 7.2. Ví Dụ 2: Hộp Thoại Xác Nhận
+
+```java
+import javax.swing.*;
+
+public class ConfirmationDialogExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Main Window");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JButton button = new JButton("Exit");
+        button.addActionListener(e -> {
+            int response = JOptionPane.showConfirmDialog(frame, "Are you sure you want to exit?",
+                                                         "Confirmation", JOptionPane.YES_NO_OPTION);
+            if (response == JOptionPane.YES_OPTION) {
+                System.exit(0);
+            }
+        });
+
+        frame.add(button);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 7.3. Ví Dụ 3: Hộp Thoại Nhập Liệu
+
+```java
+import javax.swing.*;
+
+public class InputDialogExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Main Window");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JButton button = new JButton("Enter Name");
+        button.addActionListener(e -> {
+            String name = JOptionPane.showInputDialog(frame, "Enter your name:");
+            if (name != null) {
+                JOptionPane.showMessageDialog(frame, "Hello, " + name);
+            }
+        });
+
+        frame.add(button);
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 8. Kết Luận
+
+`JDialog` là một thành phần quan trọng trong Swing để tạo các hộp thoại thông báo, xác nhận hoặc thu thập dữ liệu từ người dùng. Bằng cách sử dụng `JDialog`, bạn có thể tạo các hộp thoại tùy chỉnh cho ứng dụng của mình, giúp giao tiếp với người dùng một cách hiệu quả và trực quan hơn.
+
+**Một số lưu ý cuối:**
+
+- **Chọn loại mô-đun hợp lý:** Xác định khi nào nên sử dụng hộp thoại mô-đun hoặc không mô-đun.
+- **Sử dụng `JOptionPane` cho các hộp thoại đơn giản:** Đối với các hộp thoại xác nhận hoặc nhập liệu đơn giản, `JOptionPane` là một lựa chọn tốt.
+- **Tùy chỉnh giao diện `JDialog`:** Thêm các thành phần tùy chỉnh như nút, nhãn, và hộp văn bản để phù hợp với yêu cầu giao diện.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JDialog` và cách sử dụng nó trong các ứng dụng Swing của mình.
