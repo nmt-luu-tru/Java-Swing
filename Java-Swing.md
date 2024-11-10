@@ -18622,3 +18622,196 @@ public class CustomGridLayoutExample {
 - **Kích thước container:** `GridLayout` tự động thay đổi kích thước các ô dựa trên kích thước container, vì vậy hãy đảm bảo container có kích thước phù hợp.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `GridLayout` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# FlowLayout
+
+`FlowLayout` là một layout manager đơn giản và phổ biến trong Swing của Java, giúp sắp xếp các thành phần trong một container từ trái sang phải, tương tự như cách các từ và câu hiển thị trong một đoạn văn bản. Khi không còn đủ không gian theo chiều ngang, `FlowLayout` sẽ tự động chuyển sang dòng mới.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc `FlowLayout`](#2-cấu-trúc-flowlayout)
+3. [Tạo và Sử Dụng `FlowLayout`](#3-tạo-và-sử-dụng-flowlayout)
+   1. [Thiết Lập `FlowLayout`](#31-thiết-lập-flowlayout)
+   2. [Thêm Thành Phần vào `FlowLayout`](#32-thêm-thành-phần-vào-flowlayout)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+5. [Tùy Biến `FlowLayout`](#5-tùy-biến-flowlayout)
+   1. [Căn Chỉnh Thành Phần](#51-căn-chỉnh-thành-phần)
+6. [Ví Dụ Minh Họa](#6-ví-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `FlowLayout` Cơ Bản](#61-ví-dụ-1-tạo-flowlayout-cơ-bản)
+   2. [Ví Dụ 2: Tùy Chỉnh `FlowLayout` với Khoảng Cách và Căn Chỉnh](#62-ví-dụ-2-tùy-chỉnh-flowlayout-với-khoảng-cách-và-căn-chỉnh)
+7. [Kết Luận](#7-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`FlowLayout` sắp xếp các thành phần trong một container từ trái sang phải theo dòng, và khi không còn đủ không gian ngang, nó sẽ chuyển sang dòng mới. `FlowLayout` là layout mặc định của `JPanel`, và rất hữu ích cho các giao diện đơn giản hoặc khi bạn muốn các thành phần hiển thị theo hàng và tự động cuộn sang dòng mới khi thay đổi kích thước.
+
+**Đặc điểm chính của `FlowLayout`:**
+
+- **Sắp xếp từ trái sang phải:** Các thành phần được thêm từ trái sang phải theo thứ tự.
+- **Tự động xuống dòng:** Khi không đủ không gian ngang, các thành phần sẽ chuyển sang dòng mới.
+- **Hỗ trợ căn chỉnh:** Có thể căn trái, giữa, hoặc phải cho các thành phần.
+
+---
+
+## 2. Cấu Trúc `FlowLayout`
+
+`FlowLayout` sắp xếp các thành phần theo thứ tự chúng được thêm vào container. Bạn có thể chỉ định căn chỉnh (trái, giữa, hoặc phải) và khoảng cách giữa các thành phần theo chiều ngang và chiều dọc.
+
+---
+
+## 3. Tạo và Sử Dụng `FlowLayout`
+
+### 3.1. Thiết Lập `FlowLayout`
+
+Để sử dụng `FlowLayout`, bạn chỉ cần khởi tạo `FlowLayout` và đặt nó làm layout manager cho container. Mặc định, `FlowLayout` căn giữa các thành phần.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class FlowLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("FlowLayout Example");
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setLayout(new FlowLayout()); // Sử dụng FlowLayout mặc định
+
+        frame.setVisible(true);
+    }
+}
+```
+
+### 3.2. Thêm Thành Phần vào `FlowLayout`
+
+Khi bạn thêm các thành phần vào container sử dụng `FlowLayout`, chúng sẽ tự động được sắp xếp từ trái sang phải và cuộn sang dòng mới nếu cần.
+
+```java
+frame.add(new JButton("Button 1"));
+frame.add(new JButton("Button 2"));
+frame.add(new JButton("Button 3"));
+frame.add(new JButton("Button 4"));
+frame.add(new JButton("Button 5"));
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+- **`FlowLayout(int align)`**: Khởi tạo `FlowLayout` với căn chỉnh. Các giá trị có thể là `FlowLayout.LEFT`, `FlowLayout.CENTER`, hoặc `FlowLayout.RIGHT`.
+
+  ```java
+  frame.setLayout(new FlowLayout(FlowLayout.LEFT)); // Căn trái
+  ```
+
+- **`FlowLayout(int align, int hgap, int vgap)`**: Khởi tạo `FlowLayout` với căn chỉnh và khoảng cách ngang (`hgap`) và dọc (`vgap`) giữa các thành phần.
+
+  ```java
+  frame.setLayout(new FlowLayout(FlowLayout.RIGHT, 10, 20)); // Căn phải, khoảng cách ngang là 10, dọc là 20
+  ```
+
+- **`setAlignment(int align)`**: Đặt lại căn chỉnh cho `FlowLayout`.
+
+  ```java
+  flowLayout.setAlignment(FlowLayout.CENTER); // Căn giữa
+  ```
+
+- **`setHgap(int hgap)`**: Đặt khoảng cách ngang giữa các thành phần.
+
+  ```java
+  flowLayout.setHgap(15);
+  ```
+
+- **`setVgap(int vgap)`**: Đặt khoảng cách dọc giữa các thành phần.
+
+  ```java
+  flowLayout.setVgap(10);
+  ```
+
+---
+
+## 5. Tùy Biến `FlowLayout`
+
+### 5.1. Căn Chỉnh Thành Phần
+
+`FlowLayout` hỗ trợ các căn chỉnh sau:
+
+- **`FlowLayout.LEFT`**: Căn trái.
+- **`FlowLayout.CENTER`**: Căn giữa (mặc định).
+- **`FlowLayout.RIGHT`**: Căn phải.
+
+Bạn có thể thay đổi căn chỉnh khi khởi tạo hoặc sử dụng phương thức `setAlignment()`.
+
+```java
+frame.setLayout(new FlowLayout(FlowLayout.LEFT)); // Căn trái
+```
+
+---
+
+## 6. Ví Dụ Minh Họa
+
+### 6.1. Ví Dụ 1: Tạo `FlowLayout` Cơ Bản
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class BasicFlowLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic FlowLayout Example");
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setLayout(new FlowLayout());
+
+        for (int i = 1; i <= 5; i++) {
+            frame.add(new JButton("Button " + i));
+        }
+
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Ví Dụ 2: Tùy Chỉnh `FlowLayout` với Khoảng Cách và Căn Chỉnh
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class CustomFlowLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Custom FlowLayout Example");
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        // Căn phải, khoảng cách ngang là 15, khoảng cách dọc là 20
+        frame.setLayout(new FlowLayout(FlowLayout.RIGHT, 15, 20));
+
+        for (int i = 1; i <= 6; i++) {
+            frame.add(new JButton("Button " + i));
+        }
+
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. Kết Luận
+
+`FlowLayout` là một layout manager đơn giản và dễ sử dụng trong Swing, giúp sắp xếp các thành phần từ trái sang phải, tương tự như dòng văn bản. `FlowLayout` phù hợp cho các container chứa các thành phần nhỏ hoặc các giao diện không yêu cầu bố cục phức tạp.
+
+**Một số lưu ý cuối:**
+
+- **Sử dụng `hgap` và `vgap`:** Tạo khoảng cách ngang và dọc giữa các thành phần để giao diện rõ ràng và dễ nhìn hơn.
+- **Thay đổi căn chỉnh:** Sử dụng `setAlignment()` để thay đổi căn chỉnh cho phù hợp với thiết kế.
+- **Tự động xuống dòng:** Khi không đủ không gian, các thành phần sẽ tự động xuống dòng, vì vậy bạn không cần phải lo lắng về kích thước container.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `FlowLayout` và cách sử dụng nó trong các ứng dụng Swing của mình.
