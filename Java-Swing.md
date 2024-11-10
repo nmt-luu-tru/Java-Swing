@@ -17388,3 +17388,214 @@ public class InputDialogExample {
 - **Tùy chỉnh giao diện `JDialog`:** Thêm các thành phần tùy chỉnh như nút, nhãn, và hộp văn bản để phù hợp với yêu cầu giao diện.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JDialog` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# JTabbedPane
+
+`JTabbedPane` là một thành phần giao diện trong thư viện Swing của Java, cho phép tạo các bảng điều khiển (panels) dạng tab. Mỗi tab có thể chứa một `JPanel` riêng biệt, giúp tổ chức và sắp xếp các thành phần giao diện thành các phần dễ quản lý. `JTabbedPane` rất hữu ích cho các ứng dụng có nhiều nội dung hoặc tính năng khác nhau nhưng cần hiển thị trên cùng một giao diện mà không chiếm nhiều không gian.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc `JTabbedPane`](#2-cấu-trúc-jtabbedpane)
+3. [Tạo và Sử Dụng `JTabbedPane`](#3-tạo-và-sử-dụng-jtabbedpane)
+   1. [Tạo `JTabbedPane` Cơ Bản](#31-tạo-jtabbedpane-cơ-bản)
+   2. [Thêm Tab vào `JTabbedPane`](#32-thêm-tab-vào-jtabbedpane)
+   3. [Thiết Lập Thuộc Tính Tab](#33-thiết-lập-thuộc-tính-tab)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+5. [Tùy Biến `JTabbedPane`](#5-tùy-biến-jtabbedpane)
+   1. [Thêm Biểu Tượng vào Tab](#51-thêm-biểu-tượng-vào-tab)
+   2. [Đặt Công Cụ Tìm Kiếm và Hướng của Tabs](#52-đặt-công-cụ-tìm-kiếm-và-hướng-của-tabs)
+6. [Ví Dụ Minh Họa](#6-ví-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `JTabbedPane` Cơ Bản](#61-ví-dụ-1-tạo-jtabbedpane-cơ-bản)
+   2. [Ví Dụ 2: Tùy Chỉnh Tabs](#62-ví-dụ-2-tùy-chỉnh-tabs)
+7. [Kết Luận](#7-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`JTabbedPane` là một container đặc biệt cho phép chia giao diện thành nhiều phần khác nhau, mỗi phần hiển thị trên một tab. Khi người dùng nhấp vào một tab, nội dung của tab đó sẽ được hiển thị, giúp tiết kiệm không gian và tạo trải nghiệm người dùng dễ chịu hơn. `JTabbedPane` hỗ trợ thêm các tab có tiêu đề, biểu tượng, và có thể được tùy chỉnh về màu sắc, vị trí và các thuộc tính khác.
+
+**Đặc điểm chính của `JTabbedPane`:**
+
+- **Giao diện dạng tab:** Cho phép hiển thị nhiều panel trong cùng một vùng giao diện.
+- **Tổ chức nội dung:** Giúp người dùng dễ dàng chuyển đổi giữa các phần nội dung khác nhau.
+- **Dễ dàng tùy chỉnh:** Hỗ trợ biểu tượng, màu sắc và định dạng tab.
+
+---
+
+## 2. Cấu Trúc `JTabbedPane`
+
+`JTabbedPane` là một lớp con của `JComponent`, và là một container có thể chứa nhiều panel (`JPanel`). Mỗi tab trong `JTabbedPane` có một tiêu đề và có thể chứa một biểu tượng. Các tab có thể được sắp xếp ở các vị trí khác nhau như trên, dưới, bên trái hoặc bên phải của `JTabbedPane`.
+
+---
+
+## 3. Tạo và Sử Dụng `JTabbedPane`
+
+### 3.1. Tạo `JTabbedPane` Cơ Bản
+
+Để tạo một `JTabbedPane`, bạn chỉ cần khởi tạo một đối tượng của `JTabbedPane`. Sau đó, bạn có thể thêm các tab vào `JTabbedPane` này.
+
+```java
+import javax.swing.*;
+
+public class JTabbedPaneExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JTabbedPane Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+        frame.add(tabbedPane);
+
+        frame.setVisible(true);
+    }
+}
+```
+
+### 3.2. Thêm Tab vào `JTabbedPane`
+
+Để thêm một tab vào `JTabbedPane`, bạn sử dụng phương thức `addTab()`, cung cấp tiêu đề của tab và `Component` (ví dụ, một `JPanel`) sẽ hiển thị trong tab.
+
+```java
+JTabbedPane tabbedPane = new JTabbedPane();
+
+JPanel panel1 = new JPanel();
+panel1.add(new JLabel("Content of Tab 1"));
+tabbedPane.addTab("Tab 1", panel1);
+
+JPanel panel2 = new JPanel();
+panel2.add(new JLabel("Content of Tab 2"));
+tabbedPane.addTab("Tab 2", panel2);
+```
+
+### 3.3. Thiết Lập Thuộc Tính Tab
+
+Bạn có thể tùy chỉnh từng tab bằng cách thiết lập tiêu đề, biểu tượng, và tooltip (chú thích khi di chuột qua tab) cho từng tab.
+
+```java
+tabbedPane.addTab("Tab 1", new ImageIcon("path/to/icon.png"), panel1, "Tooltip for Tab 1");
+tabbedPane.setToolTipTextAt(0, "New tooltip for Tab 1");
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+- **`addTab(String title, Component component)`**: Thêm một tab mới với tiêu đề và component.
+- **`setSelectedIndex(int index)`**: Đặt tab được chọn theo chỉ số.
+- **`getSelectedIndex()`**: Lấy chỉ số của tab hiện tại được chọn.
+- **`setTitleAt(int index, String title)`**: Thay đổi tiêu đề của tab tại chỉ số.
+- **`setToolTipTextAt(int index, String tooltip)`**: Đặt tooltip cho tab tại chỉ số.
+- **`setIconAt(int index, Icon icon)`**: Đặt biểu tượng cho tab tại chỉ số.
+- **`removeTabAt(int index)`**: Xóa tab tại chỉ số cụ thể.
+
+```java
+tabbedPane.setSelectedIndex(1);  // Chọn tab thứ hai
+tabbedPane.setTitleAt(0, "New Tab 1");  // Đổi tiêu đề tab đầu tiên
+tabbedPane.removeTabAt(1);  // Xóa tab thứ hai
+```
+
+---
+
+## 5. Tùy Biến `JTabbedPane`
+
+### 5.1. Thêm Biểu Tượng vào Tab
+
+Bạn có thể thêm biểu tượng cho từng tab để làm rõ hơn nội dung hoặc chức năng của tab.
+
+```java
+tabbedPane.addTab("Tab with Icon", new ImageIcon("icon.png"), new JPanel());
+```
+
+### 5.2. Đặt Công Cụ Tìm Kiếm và Hướng của Tabs
+
+Bạn có thể thay đổi vị trí của các tab bằng cách sử dụng phương thức `setTabPlacement()`. Các vị trí có thể là `TOP`, `BOTTOM`, `LEFT`, hoặc `RIGHT`.
+
+```java
+tabbedPane.setTabPlacement(JTabbedPane.LEFT);
+```
+
+---
+
+## 6. Ví Dụ Minh Họa
+
+### 6.1. Ví Dụ 1: Tạo `JTabbedPane` Cơ Bản
+
+```java
+import javax.swing.*;
+
+public class BasicJTabbedPaneExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic JTabbedPane Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        JPanel panel1 = new JPanel();
+        panel1.add(new JLabel("This is Tab 1"));
+        tabbedPane.addTab("Tab 1", panel1);
+
+        JPanel panel2 = new JPanel();
+        panel2.add(new JLabel("This is Tab 2"));
+        tabbedPane.addTab("Tab 2", panel2);
+
+        frame.add(tabbedPane);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Ví Dụ 2: Tùy Chỉnh Tabs
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class CustomJTabbedPaneExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Custom JTabbedPane Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTabbedPane tabbedPane = new JTabbedPane();
+
+        JPanel panel1 = new JPanel();
+        panel1.add(new JLabel("Content of Tab 1"));
+        tabbedPane.addTab("Tab 1", new ImageIcon("icon1.png"), panel1, "This is the first tab");
+
+        JPanel panel2 = new JPanel();
+        panel2.setBackground(Color.LIGHT_GRAY);
+        panel2.add(new JLabel("Content of Tab 2"));
+        tabbedPane.addTab("Tab 2", new ImageIcon("icon2.png"), panel2, "This is the second tab");
+
+        JPanel panel3 = new JPanel();
+        panel3.add(new JLabel("Content of Tab 3"));
+        tabbedPane.addTab("Tab 3", panel3);
+
+        tabbedPane.setTabPlacement
+
+(JTabbedPane.LEFT);
+
+        frame.add(tabbedPane);
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. Kết Luận
+
+`JTabbedPane` là một thành phần quan trọng và linh hoạt trong Swing, cho phép bạn tạo giao diện đa tab dễ sử dụng. Với `JTabbedPane`, bạn có thể tổ chức nội dung của ứng dụng thành nhiều phần mà không tốn quá nhiều không gian màn hình. Các tab có thể được tùy chỉnh để phù hợp với yêu cầu của ứng dụng.
+
+**Một số lưu ý cuối:**
+
+- **Tổ chức hợp lý các tab:** Sắp xếp các tab theo thứ tự ưu tiên hoặc nhóm các tab liên quan.
+- **Sử dụng biểu tượng và tooltip:** Thêm biểu tượng và tooltip giúp người dùng dễ nhận biết nội dung hoặc chức năng của mỗi tab.
+- **Tùy chỉnh vị trí tab:** Thay đổi vị trí của các tab để phù hợp với thiết kế tổng thể của ứng dụng.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JTabbedPane` và cách sử dụng nó trong các ứng dụng Swing của mình.
