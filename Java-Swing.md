@@ -16756,3 +16756,358 @@ public class JRadioButtonMenuItemInPopupMenuExample {
 - **Sử dụng linh hoạt:** `JRadioButtonMenuItem` có thể được sử dụng cho các tính năng như lựa chọn chủ đề, chế độ hiển thị, và các tùy chọn cài đặt khác, giúp người dùng dễ dàng tùy chỉnh ứng dụng theo ý thích.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JRadioButtonMenuItem` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# JPanel
+
+`JPanel` là một container trong thư viện Swing của Java, cho phép nhóm và tổ chức các thành phần giao diện người dùng (components) khác nhau theo bố cục (layout) linh hoạt. `JPanel` đóng vai trò quan trọng trong việc xây dựng giao diện đồ họa, giúp sắp xếp các thành phần một cách khoa học và dễ quản lý. Ngoài ra, `JPanel` hỗ trợ tùy biến giao diện như màu nền, đường viền, kích thước, và các tùy chọn bố cục khác nhau để tạo ra giao diện trực quan và thân thiện.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc `JPanel`](#2-cấu-trúc-jpanel)
+3. [Tạo và Sử Dụng `JPanel`](#3-tạo-và-sử-dụng-jpanel)
+   1. [Tạo `JPanel`](#31-tạo-jpanel)
+   2. [Thiết Lập Bố Cục (`Layout`)](#32-thiết-lập-bố-cục-layout)
+   3. [Thêm Thành Phần Vào `JPanel`](#33-thêm-thành-phần-vào-jpanel)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+   1. [Thuộc Tính](#41-thuộc-tính)
+   2. [Phương Thức](#42-phương-thức)
+5. [Tùy Biến `JPanel`](#5-tùy-biến-jpanel)
+6. [Các Bố Cục (`Layout`) Thường Dùng](#6-các-bố-cục-layout-thường-dùng)
+   1. [FlowLayout](#61-flowlayout)
+   2. [BorderLayout](#62-borderlayout)
+   3. [GridLayout](#63-gridlayout)
+   4. [BoxLayout](#64-boxlayout)
+   5. [CardLayout](#65-cardlayout)
+   6. [GridBagLayout](#66-gridbaglayout)
+7. [Lồng Ghép `JPanel`](#7-lồng-ghép-jpanel)
+8. [Ví Dụ Minh Họa](#8-ví-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `JPanel` Cơ Bản](#81-vi-du-1-tạo-jpanel-cơ-bản)
+   2. [Ví Dụ 2: Sử Dụng Bố Cục Khác Nhau](#82-vi-du-2-sử-dụng-bố-cục-khác-nhau)
+9. [Kết Luận](#9-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`JPanel` là một lớp trong Swing, thuộc gói `javax.swing`, cho phép bạn tạo các nhóm thành phần giao diện trong một khung chứa (container). Mặc định, `JPanel` sử dụng `FlowLayout` để sắp xếp các thành phần từ trái sang phải theo dòng, nhưng bạn có thể thay đổi bố cục thành các loại khác như `BorderLayout`, `GridLayout`, `BoxLayout`, `CardLayout`, hoặc `GridBagLayout`.
+
+**Các đặc điểm nổi bật của `JPanel`:**
+
+- **Tính linh hoạt:** Có thể chứa nhiều thành phần giao diện và lồng ghép nhiều `JPanel` với nhau.
+- **Tùy biến giao diện:** Hỗ trợ màu nền, đường viền, kích thước và layout.
+- **Khả năng tái sử dụng:** Tạo các nhóm thành phần có thể sử dụng lại trong các phần khác của ứng dụng.
+- **Hiệu quả quản lý giao diện:** Giúp chia nhỏ giao diện phức tạp thành các phần dễ quản lý.
+
+## 2. Cấu Trúc `JPanel`
+
+`JPanel` là một lớp con của `JComponent`, do đó kế thừa tất cả các thuộc tính và phương thức của `JComponent`. Điều này bao gồm khả năng tùy chỉnh màu sắc, font chữ, viền, và hỗ trợ các sự kiện người dùng.
+
+## 3. Tạo và Sử Dụng `JPanel`
+
+### 3.1. Tạo `JPanel`
+
+`JPanel` có thể được tạo đơn giản bằng cách khởi tạo một đối tượng `JPanel`. Khi tạo `JPanel`, bạn có thể:
+
+- Sử dụng bố cục mặc định (FlowLayout).
+- Thiết lập bố cục tùy chỉnh để quản lý các thành phần giao diện.
+
+```java
+import javax.swing.*;
+
+public class JPanelExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JPanel Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        
+        // Tạo JPanel
+        JPanel panel = new JPanel();
+        
+        // Thêm JPanel vào JFrame
+        frame.add(panel);
+        
+        // Hiển thị JFrame
+        frame.setVisible(true);
+    }
+}
+```
+
+### 3.2. Thiết Lập Bố Cục (`Layout`)
+
+Bạn có thể thay đổi bố cục mặc định của `JPanel` bằng cách sử dụng các lớp layout như `BorderLayout`, `GridLayout`, `BoxLayout`, `CardLayout`, và `GridBagLayout`.
+
+```java
+// Sử dụng BorderLayout cho JPanel
+panel.setLayout(new BorderLayout());
+
+// Sử dụng GridLayout với 2 hàng và 3 cột
+panel.setLayout(new GridLayout(2, 3));
+
+// Sử dụng BoxLayout theo chiều dọc
+panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+```
+
+### 3.3. Thêm Thành Phần Vào `JPanel`
+
+Sau khi tạo và thiết lập bố cục cho `JPanel`, bạn có thể thêm các thành phần giao diện như `JButton`, `JLabel`, `JTextField`, v.v.
+
+```java
+JButton button = new JButton("Click Me");
+JLabel label = new JLabel("Hello World");
+
+panel.add(button);
+panel.add(label);
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+### 4.1. Thuộc Tính
+
+- **Background (`background`):** Đặt màu nền cho `JPanel`.
+
+  ```java
+  panel.setBackground(Color.LIGHT_GRAY);
+  ```
+
+- **Opaque (`opaque`):** Xác định xem `JPanel` có được vẽ nền hay không.
+
+  ```java
+  panel.setOpaque(true);
+  ```
+
+- **Preferred Size (`preferredSize`):** Kích thước mong muốn của `JPanel`.
+
+  ```java
+  panel.setPreferredSize(new Dimension(200, 100));
+  ```
+
+### 4.2. Phương Thức
+
+- **`add(Component comp)`**: Thêm một thành phần giao diện vào `JPanel`.
+
+  ```java
+  panel.add(new JButton("Submit"));
+  ```
+
+- **`setLayout(LayoutManager mgr)`**: Đặt bố cục cho `JPanel`.
+
+  ```java
+  panel.setLayout(new BorderLayout());
+  ```
+
+- **`setBackground(Color bg)`**: Đặt màu nền cho `JPanel`.
+
+  ```java
+  panel.setBackground(Color.CYAN);
+  ```
+
+- **`setBorder(Border border)`**: Đặt đường viền cho `JPanel`.
+
+  ```java
+  panel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+  ```
+
+- **`remove(Component comp)`**: Xóa một thành phần khỏi `JPanel`.
+
+  ```java
+  panel.remove(button);
+  ```
+
+- **`removeAll()`**: Xóa tất cả các thành phần khỏi `JPanel`.
+
+  ```java
+  panel.removeAll();
+  ```
+
+---
+
+## 5. Tùy Biến `JPanel`
+
+`JPanel` cho phép tùy biến nhiều khía cạnh, bao gồm màu nền, đường viền, kích thước và các thành phần bên trong.
+
+```java
+// Đặt màu nền cho JPanel
+panel.setBackground(Color.LIGHT_GRAY);
+
+// Đặt đường viền cho JPanel
+panel.setBorder(BorderFactory.createTitledBorder("Panel Title"));
+
+// Đặt kích thước mong muốn cho JPanel
+panel.setPreferredSize(new Dimension(300, 200));
+```
+
+---
+
+## 6. Các Bố Cục (`Layout`) Thường Dùng
+
+### 6.1. FlowLayout
+
+`FlowLayout` sắp xếp các thành phần theo dòng, từ trái sang phải và từ trên xuống dưới.
+
+```java
+panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+```
+
+### 6.2. BorderLayout
+
+`BorderLayout` chia `JPanel` thành 5 vùng: **North**, **South**, **East**, **West**, và **Center**. Mỗi vùng có thể chứa một thành phần.
+
+```java
+panel.setLayout(new BorderLayout());
+panel.add(new JButton("North"), BorderLayout.NORTH);
+panel.add(new JButton("Center"), BorderLayout.CENTER);
+```
+
+### 6.3. GridLayout
+
+`GridLayout` chia `JPanel` thành lưới với số hàng và số cột cố định. Tất cả các ô đều có kích thước bằng nhau.
+
+```java
+panel.setLayout(new GridLayout(2, 2)); // 2 hàng và 2 cột
+```
+
+### 6.4. BoxLayout
+
+`BoxLayout` sắp xếp các
+
+ thành phần theo chiều ngang hoặc chiều dọc.
+
+```java
+panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Sắp xếp theo chiều dọc
+```
+
+### 6.5. CardLayout
+
+`CardLayout` quản lý các thành phần dưới dạng các thẻ, mỗi thẻ là một panel. Bạn có thể chuyển đổi giữa các thẻ khi cần thiết, hữu ích cho các giao diện có nhiều màn hình khác nhau (ví dụ: màn hình đăng nhập và màn hình chính).
+
+```java
+CardLayout cardLayout = new CardLayout();
+panel.setLayout(cardLayout);
+
+// Thêm các thẻ vào panel
+panel.add(new JButton("Card 1"), "Card 1");
+panel.add(new JButton("Card 2"), "Card 2");
+
+// Chuyển sang thẻ khác
+cardLayout.show(panel, "Card 2");
+```
+
+### 6.6. GridBagLayout
+
+`GridBagLayout` là một layout phức tạp và linh hoạt, cho phép sắp xếp các thành phần với kích thước không đồng nhất trong một lưới. Đây là layout mạnh mẽ nhất trong Swing và phù hợp với các giao diện có yêu cầu về bố cục phức tạp.
+
+```java
+panel.setLayout(new GridBagLayout());
+GridBagConstraints constraints = new GridBagConstraints();
+constraints.gridx = 0;
+constraints.gridy = 0;
+panel.add(new JButton("Button 1"), constraints);
+
+constraints.gridx = 1;
+panel.add(new JButton("Button 2"), constraints);
+```
+
+---
+
+## 7. Lồng Ghép `JPanel`
+
+Bạn có thể lồng ghép nhiều `JPanel` với nhau để tạo các cấu trúc giao diện phức tạp. Ví dụ, một `JPanel` chứa `BorderLayout` có thể chứa các `JPanel` khác bên trong các vùng `North`, `South`, `East`, `West`, và `Center`.
+
+```java
+JPanel mainPanel = new JPanel(new BorderLayout());
+JPanel topPanel = new JPanel(new FlowLayout());
+JPanel centerPanel = new JPanel(new GridLayout(2, 2));
+
+mainPanel.add(topPanel, BorderLayout.NORTH);
+mainPanel.add(centerPanel, BorderLayout.CENTER);
+
+// Thêm mainPanel vào JFrame
+frame.add(mainPanel);
+```
+
+---
+
+## 8. Ví Dụ Minh Họa
+
+### 8.1. Ví Dụ 1: Tạo `JPanel` Cơ Bản
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class BasicJPanelExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic JPanel Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(400, 300);
+        
+        JPanel panel = new JPanel();
+        panel.setBackground(Color.LIGHT_GRAY);
+        
+        JButton button1 = new JButton("Button 1");
+        JButton button2 = new JButton("Button 2");
+        
+        panel.add(button1);
+        panel.add(button2);
+        
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 8.2. Ví Dụ 2: Sử Dụng Bố Cục Khác Nhau
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class LayoutJPanelExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Layout JPanel Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        // Tạo JPanel với BorderLayout
+        JPanel borderPanel = new JPanel();
+        borderPanel.setLayout(new BorderLayout());
+        borderPanel.add(new JButton("North"), BorderLayout.NORTH);
+        borderPanel.add(new JButton("South"), BorderLayout.SOUTH);
+        borderPanel.add(new JButton("Center"), BorderLayout.CENTER);
+        
+        // Tạo JPanel với GridLayout
+        JPanel gridPanel = new JPanel();
+        gridPanel.setLayout(new GridLayout(2, 2));
+        gridPanel.add(new JButton("Button 1"));
+        gridPanel.add(new JButton("Button 2"));
+        gridPanel.add(new JButton("Button 3"));
+        gridPanel.add(new JButton("Button 4"));
+        
+        // Thêm các JPanel vào JFrame
+        frame.setLayout(new GridLayout(1, 2)); // Bố cục 1 hàng, 2 cột
+        frame.add(borderPanel);
+        frame.add(gridPanel);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 9. Kết Luận
+
+`JPanel` là một thành phần container quan trọng và linh hoạt nhất trong Swing, giúp tổ chức các thành phần giao diện và tạo bố cục một cách dễ dàng. Bằng cách sử dụng các layout manager khác nhau, bạn có thể xây dựng các giao diện người dùng phức tạp, thân thiện, và dễ quản lý.
+
+**Một số lưu ý cuối:**
+
+- **Chọn layout hợp lý:** Sử dụng các layout phù hợp cho yêu cầu bố cục của ứng dụng.
+- **Sử dụng lồng ghép `JPanel`:** Lồng ghép nhiều `JPanel` để tạo cấu trúc giao diện phức tạp.
+- **Tùy biến giao diện:** Tùy chỉnh màu sắc, đường viền, và kích thước để phù hợp với thiết kế tổng thể.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JPanel` và cách sử dụng nó trong các ứng dụng Swing của mình.
