@@ -17832,3 +17832,205 @@ Panel.setBackground(Color.LIGHT_GRAY);
 - **Sử dụng kích thước tối thiểu:** Đảm bảo mỗi vùng có kích thước tối thiểu phù hợp, tránh tình trạng các thành phần bên trong bị cắt.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JSplitPane` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# JScrollPane
+
+`JScrollPane` là một thành phần trong thư viện Swing của Java, cho phép người dùng cuộn nội dung của các thành phần lớn hơn không gian hiển thị hiện có. `JScrollPane` là một container giúp các thành phần như `JPanel`, `JTable`, `JTextArea`, v.v., dễ dàng hiển thị khi nội dung vượt quá kích thước vùng hiển thị.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc `JScrollPane`](#2-cấu-trúc-jscrollpane)
+3. [Tạo và Sử Dụng `JScrollPane`](#3-tạo-và-sử-dụng-jscrollpane)
+   1. [Tạo `JScrollPane` Cơ Bản](#31-tạo-jscrollpane-cơ-bản)
+   2. [Thêm Thành Phần vào `JScrollPane`](#32-thêm-thành-phần-vào-jscrollpane)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+5. [Tùy Biến `JScrollPane`](#5-tùy-biến-jscrollpane)
+   1. [Thiết Lập Chính Sách Thanh Cuộn](#51-thiết-lập-chính-sách-thanh-cuộn)
+   2. [Đặt Vị Trí Khởi Đầu](#52-đặt-vị-trí-khởi-đầu)
+6. [Ví Dụ Minh Họa](#6-ví-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `JScrollPane` Cơ Bản](#61-ví-dụ-1-tạo-jscrollpane-cơ-bản)
+   2. [Ví Dụ 2: `JScrollPane` Với `JTextArea`](#62-ví-dụ-2-jscrollpane-với-jtextarea)
+7. [Kết Luận](#7-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`JScrollPane` là một thành phần container đặc biệt trong Swing, cung cấp các thanh cuộn dọc và ngang để cuộn nội dung của thành phần con bên trong nó. Điều này giúp hiển thị nội dung lớn hơn vùng hiển thị có sẵn và dễ dàng cuộn để xem các phần không hiển thị.
+
+**Đặc điểm chính của `JScrollPane`:**
+
+- **Thanh cuộn tự động:** Cung cấp thanh cuộn khi nội dung vượt quá không gian hiển thị.
+- **Tích hợp với nhiều thành phần:** `JScrollPane` có thể chứa bất kỳ `Component` nào như `JTable`, `JList`, `JTextArea`.
+- **Tùy chỉnh linh hoạt:** Có thể thay đổi các chính sách hiển thị thanh cuộn và điều chỉnh các thuộc tính khác.
+
+---
+
+## 2. Cấu Trúc `JScrollPane`
+
+`JScrollPane` là một container có thể chứa một thành phần duy nhất, như `JTable`, `JTextArea`, hoặc `JPanel`. Khi thành phần bên trong lớn hơn không gian hiển thị, `JScrollPane` sẽ tự động thêm thanh cuộn dọc, ngang, hoặc cả hai dựa trên chính sách hiển thị đã thiết lập.
+
+---
+
+## 3. Tạo và Sử Dụng `JScrollPane`
+
+### 3.1. Tạo `JScrollPane` Cơ Bản
+
+Để tạo một `JScrollPane`, bạn chỉ cần khởi tạo đối tượng `JScrollPane`, sau đó thêm thành phần mà bạn muốn hiển thị với thanh cuộn vào `JScrollPane`.
+
+```java
+import javax.swing.*;
+
+public class JScrollPaneExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JScrollPane Example");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTextArea textArea = new JTextArea(20, 30);
+        JScrollPane scrollPane = new JScrollPane(textArea);
+
+        frame.add(scrollPane);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 3.2. Thêm Thành Phần vào `JScrollPane`
+
+Bạn có thể thêm bất kỳ thành phần Swing nào vào `JScrollPane`. Điều này bao gồm `JTextArea`, `JTable`, `JList`, và `JPanel` nếu nội dung của chúng vượt quá kích thước hiển thị.
+
+```java
+JTextArea textArea = new JTextArea(20, 30);
+JScrollPane scrollPane = new JScrollPane(textArea);
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+- **`setHorizontalScrollBarPolicy(int policy)`**: Đặt chính sách cho thanh cuộn ngang. Có thể sử dụng các giá trị như `ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS`, `HORIZONTAL_SCROLLBAR_AS_NEEDED`, hoặc `HORIZONTAL_SCROLLBAR_NEVER`.
+
+  ```java
+  scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+  ```
+
+- **`setVerticalScrollBarPolicy(int policy)`**: Đặt chính sách cho thanh cuộn dọc. Các giá trị tương tự với `HORIZONTAL_SCROLLBAR_POLICY`.
+
+  ```java
+  scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+  ```
+
+- **`getHorizontalScrollBar()` / `getVerticalScrollBar()`**: Lấy thanh cuộn ngang hoặc dọc để tùy chỉnh thêm.
+
+  ```java
+  JScrollBar verticalScrollBar = scrollPane.getVerticalScrollBar();
+  ```
+
+- **`getViewport()`**: Lấy `JViewport` của `JScrollPane`, thành phần này chứa nội dung được hiển thị. Bạn có thể tùy chỉnh `JViewport` để điều chỉnh các thuộc tính hiển thị.
+
+  ```java
+  scrollPane.getViewport().setViewPosition(new Point(0, 0)); // Đặt vị trí khởi đầu
+  ```
+
+- **`setViewportView(Component view)`**: Thay đổi thành phần được hiển thị trong `JScrollPane`.
+
+  ```java
+  scrollPane.setViewportView(new JTextArea("New Content"));
+  ```
+
+---
+
+## 5. Tùy Biến `JScrollPane`
+
+### 5.1. Thiết Lập Chính Sách Thanh Cuộn
+
+Bạn có thể kiểm soát khi nào thanh cuộn dọc hoặc ngang sẽ xuất hiện bằng cách thiết lập các chính sách cho thanh cuộn.
+
+```java
+scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+```
+
+### 5.2. Đặt Vị Trí Khởi Đầu
+
+Bạn có thể thiết lập vị trí khởi đầu của `JScrollPane` bằng cách sử dụng `setViewPosition()` của `JViewport`.
+
+```java
+scrollPane.getViewport().setViewPosition(new Point(0, 0));
+```
+
+---
+
+## 6. Ví Dụ Minh Họa
+
+### 6.1. Ví Dụ 1: Tạo `JScrollPane` Cơ Bản
+
+```java
+import javax.swing.*;
+
+public class BasicJScrollPaneExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic JScrollPane Example");
+        frame.setSize(400, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTextArea textArea = new JTextArea(20, 30);
+        textArea.setText("This is a simple example of JScrollPane with JTextArea.\n"
+                + "Scroll to view more content...\n"
+                + "Lorem ipsum dolor sit amet, consectetur adipiscing elit.\n"
+                + "Mauris efficitur orci non malesuada tristique.\n"
+                + "Ut tempor dolor id ligula consectetur tempor.");
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        frame.add(scrollPane);
+
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Ví Dụ 2: `JScrollPane` Với `JTextArea`
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class JScrollPaneWithTextAreaExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JScrollPane with JTextArea Example");
+        frame.setSize(500, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JTextArea textArea = new JTextArea(10, 30);
+        textArea.setText("This is a JTextArea within a JScrollPane. "
+                + "You can add more text here to see how the scroll pane works.");
+
+        JScrollPane scrollPane = new JScrollPane(textArea);
+        scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+
+        frame.add(scrollPane, BorderLayout.CENTER);
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. Kết Luận
+
+`JScrollPane` là một thành phần hữu ích trong Swing, giúp hiển thị nội dung có kích thước lớn hơn không gian hiển thị. Bằng cách cung cấp các thanh cuộn, `JScrollPane` giúp người dùng xem toàn bộ nội dung mà không làm thay đổi kích thước cửa sổ.
+
+**Một số lưu ý cuối:**
+
+- **Thiết lập chính sách thanh cuộn hợp lý:** Chọn chính sách
+
+ hiển thị thanh cuộn phù hợp với giao diện của bạn để đảm bảo tính thân thiện với người dùng.
+- **Tùy chỉnh thanh cuộn nếu cần:** Lấy các thanh cuộn riêng biệt bằng `getHorizontalScrollBar()` hoặc `getVerticalScrollBar()` để tùy chỉnh theo yêu cầu.
+- **Đảm bảo tính thẩm mỹ và hiệu quả sử dụng:** Khi thêm nhiều thành phần con vào `JScrollPane`, hãy đảm bảo rằng nội dung được sắp xếp gọn gàng và dễ xem.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JScrollPane` và cách sử dụng nó trong các ứng dụng Swing của mình.
