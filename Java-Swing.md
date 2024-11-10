@@ -18815,3 +18815,217 @@ public class CustomFlowLayoutExample {
 - **Tự động xuống dòng:** Khi không đủ không gian, các thành phần sẽ tự động xuống dòng, vì vậy bạn không cần phải lo lắng về kích thước container.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `FlowLayout` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# BoxLayout
+
+`BoxLayout` là một layout manager trong Swing của Java, sắp xếp các thành phần trong một container theo chiều ngang hoặc chiều dọc. `BoxLayout` rất linh hoạt, cho phép bạn sắp xếp các thành phần một cách tuần tự và dễ dàng điều chỉnh khoảng cách giữa các thành phần bằng các "glue" (keo), "struts" (thanh ngăn cách), và "rigid areas" (khu vực cố định). `BoxLayout` thường được sử dụng với `Box`, một lớp hỗ trợ mạnh mẽ cho việc sắp xếp các thành phần theo chiều ngang và dọc.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc `BoxLayout`](#2-cấu-trúc-boxlayout)
+3. [Tạo và Sử Dụng `BoxLayout`](#3-tạo-và-sử-dụng-boxlayout)
+   1. [Thiết Lập `BoxLayout`](#31-thiết-lập-boxlayout)
+   2. [Thêm Thành Phần vào `BoxLayout`](#32-thêm-thành-phần-vào-boxlayout)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+5. [Sử Dụng Glue, Strut và Rigid Area](#5-sử-dụng-glue-strut-và-rigid-area)
+   1. [Glue](#51-glue)
+   2. [Strut](#52-strut)
+   3. [Rigid Area](#53-rigid-area)
+6. [Ví Dụ Minh Họa](#6-ví-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `BoxLayout` Cơ Bản](#61-ví-dụ-1-tạo-boxlayout-cơ-bản)
+   2. [Ví Dụ 2: Sử Dụng Glue và Strut với `BoxLayout`](#62-ví-dụ-2-sử-dụng-glue-và-strut-với-boxlayout)
+7. [Kết Luận](#7-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`BoxLayout` cho phép sắp xếp các thành phần trong một container theo chiều ngang hoặc chiều dọc. Với `BoxLayout`, bạn có thể tạo ra giao diện linh hoạt và có thể tùy chỉnh khoảng cách giữa các thành phần. `BoxLayout` hỗ trợ sắp xếp tự do hơn các layout khác, đặc biệt hữu ích khi muốn các thành phần xếp thành hàng hoặc cột mà không bị ảnh hưởng bởi kích thước container.
+
+**Đặc điểm chính của `BoxLayout`:**
+
+- **Sắp xếp thành hàng hoặc cột:** Bạn có thể chọn sắp xếp các thành phần theo chiều ngang hoặc dọc.
+- **Tùy chỉnh khoảng cách linh hoạt:** `BoxLayout` hỗ trợ việc thêm các khoảng cách (glue, strut, rigid area) để điều chỉnh không gian giữa các thành phần.
+- **Hỗ trợ chiều rộng và chiều cao khác nhau:** Các thành phần trong cùng một `BoxLayout` có thể có kích thước khác nhau, và bạn có thể kiểm soát cách chúng mở rộng hoặc co lại.
+
+---
+
+## 2. Cấu Trúc `BoxLayout`
+
+`BoxLayout` sắp xếp các thành phần trong một container theo một trong hai hướng:
+
+- **BoxLayout.X_AXIS:** Sắp xếp các thành phần theo chiều ngang.
+- **BoxLayout.Y_AXIS:** Sắp xếp các thành phần theo chiều dọc.
+
+Bạn có thể thiết lập `BoxLayout` cho một container (như `JPanel`) hoặc sử dụng lớp `Box` để dễ dàng thêm các thành phần và tùy chỉnh khoảng cách.
+
+---
+
+## 3. Tạo và Sử Dụng `BoxLayout`
+
+### 3.1. Thiết Lập `BoxLayout`
+
+Để sử dụng `BoxLayout`, bạn có thể thiết lập `BoxLayout` cho một container như `JPanel` bằng cách chỉ định hướng sắp xếp (X_AXIS hoặc Y_AXIS).
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class BoxLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("BoxLayout Example");
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Sắp xếp theo chiều dọc
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 3.2. Thêm Thành Phần vào `BoxLayout`
+
+Khi bạn thêm các thành phần vào một container có `BoxLayout`, các thành phần sẽ được sắp xếp theo hướng đã chọn, từ trái sang phải (X_AXIS) hoặc từ trên xuống dưới (Y_AXIS).
+
+```java
+JPanel panel = new JPanel();
+panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+
+panel.add(new JButton("Button 1"));
+panel.add(new JButton("Button 2"));
+panel.add(new JButton("Button 3"));
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+- **`BoxLayout(Container target, int axis)`**: Khởi tạo `BoxLayout` cho một container với hướng sắp xếp xác định (`BoxLayout.X_AXIS` hoặc `BoxLayout.Y_AXIS`).
+
+  ```java
+  panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS)); // Sắp xếp theo chiều ngang
+  ```
+
+- **`createGlue()`**: Tạo khoảng cách linh hoạt, cho phép các thành phần có thể giãn ra để lấp đầy không gian trống.
+
+  ```java
+  panel.add(Box.createGlue());
+  ```
+
+- **`createHorizontalStrut(int width)`** và **`createVerticalStrut(int height)`**: Tạo khoảng cách cố định giữa các thành phần theo chiều ngang hoặc chiều dọc.
+
+  ```java
+  panel.add(Box.createHorizontalStrut(10)); // Khoảng cách ngang cố định là 10
+  ```
+
+- **`createRigidArea(Dimension d)`**: Tạo khoảng cách cố định với kích thước cụ thể.
+
+  ```java
+  panel.add(Box.createRigidArea(new Dimension(20, 20))); // Khoảng cách cố định 20x20
+  ```
+
+---
+
+## 5. Sử Dụng Glue, Strut và Rigid Area
+
+### 5.1. Glue
+
+`Glue` tạo khoảng cách linh hoạt, giúp các thành phần có thể giãn ra hoặc co lại để lấp đầy không gian trống. Điều này đặc biệt hữu ích khi bạn muốn các thành phần được căn giữa hoặc trải đều.
+
+```java
+panel.add(Box.createGlue());
+```
+
+### 5.2. Strut
+
+`Strut` là khoảng cách cố định giữa các thành phần. Bạn có thể sử dụng `createHorizontalStrut()` để tạo khoảng cách ngang và `createVerticalStrut()` để tạo khoảng cách dọc.
+
+```java
+panel.add(Box.createHorizontalStrut(10)); // Khoảng cách ngang cố định 10
+```
+
+### 5.3. Rigid Area
+
+`Rigid Area` tạo khoảng cách cố định với kích thước cụ thể theo cả hai chiều. Đây là một cách để giữ khoảng cách chính xác giữa các thành phần trong `BoxLayout`.
+
+```java
+panel.add(Box.createRigidArea(new Dimension(20, 20))); // Khoảng cách cố định 20x20
+```
+
+---
+
+## 6. Ví Dụ Minh Họa
+
+### 6.1. Ví Dụ 1: Tạo `BoxLayout` Cơ Bản
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class BasicBoxLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic BoxLayout Example");
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS)); // Sắp xếp theo chiều dọc
+
+        panel.add(new JButton("Button 1"));
+        panel.add(new JButton("Button 2"));
+        panel.add(new JButton("Button 3"));
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Ví Dụ 2: Sử Dụng Glue và Strut với `BoxLayout`
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class CustomBoxLayoutExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Custom BoxLayout Example");
+        frame.setSize(400, 200);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS)); // Sắp xếp theo chiều ngang
+
+        panel.add(new JButton("Button 1"));
+        panel.add(Box.createHorizontalStrut(10)); // Khoảng cách ngang cố định là 10
+        panel.add(new JButton("Button 2"));
+        panel.add(Box.createGlue()); // Khoảng cách linh hoạt
+        panel.add(new JButton("Button 3"));
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. Kết Luận
+
+`BoxLayout` là một layout manager mạnh mẽ và linh hoạt, giúp bạn sắp xếp các thành phần theo hàng
+
+ hoặc cột. `BoxLayout` đặc biệt hữu ích khi bạn cần điều chỉnh khoảng cách giữa các thành phần và tạo giao diện có tính thẩm mỹ cao.
+
+**Một số lưu ý cuối:**
+
+- **Chọn hướng phù hợp:** `BoxLayout.X_AXIS` cho sắp xếp ngang, `BoxLayout.Y_AXIS` cho sắp xếp dọc.
+- **Sử dụng Glue, Strut và Rigid Area:** Điều chỉnh không gian giữa các thành phần để tạo bố cục trực quan và thân thiện.
+- **Dễ dàng mở rộng:** `BoxLayout` cho phép bạn dễ dàng thêm các thành phần khác mà không ảnh hưởng đến bố cục chung.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `BoxLayout` và cách sử dụng nó trong các ứng dụng Swing của mình.
