@@ -17599,3 +17599,236 @@ public class CustomJTabbedPaneExample {
 - **Tùy chỉnh vị trí tab:** Thay đổi vị trí của các tab để phù hợp với thiết kế tổng thể của ứng dụng.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JTabbedPane` và cách sử dụng nó trong các ứng dụng Swing của mình.
+
+---
+
+# JSplitPane
+
+`JSplitPane` là một thành phần giao diện trong thư viện Swing của Java, cho phép chia giao diện thành hai vùng có thể thay đổi kích thước, được ngăn cách bằng một thanh kéo. `JSplitPane` giúp người dùng điều chỉnh kích thước của mỗi vùng tùy theo nhu cầu, đồng thời duy trì bố cục linh hoạt và trực quan cho các phần nội dung khác nhau của ứng dụng.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Cấu Trúc `JSplitPane`](#2-cấu-trúc-jsplitpane)
+3. [Tạo và Sử Dụng `JSplitPane`](#3-tạo-và-sử-dụng-jsplitpane)
+   1. [Tạo `JSplitPane` Cơ Bản](#31-tạo-jsplitpane-cơ-bản)
+   2. [Thiết Lập Hướng Chia Cắt](#32-thiết-lập-hướng-chia-cắt)
+   3. [Thiết Lập Thành Phần Bên Trong `JSplitPane`](#33-thiết-lập-thành-phần-bên-trong-jsplitpane)
+4. [Thuộc Tính và Phương Thức Chính](#4-thuộc-tính-và-phương-thức-chính)
+5. [Tùy Biến `JSplitPane`](#5-tùy-biến-jsplitpane)
+   1. [Thiết Lập Kích Thước Tối Thiểu](#51-thiết-lập-kích-thước-tối-thiểu)
+   2. [Ẩn/Hiện Thanh Kéo](#52-ẩn-hiện-thanh-kéo)
+6. [Ví Dụ Minh Họa](#6-ví-dụ-minh-họa)
+   1. [Ví Dụ 1: Tạo `JSplitPane` Cơ Bản](#61-ví-dụ-1-tạo-jsplitpane-cơ-bản)
+   2. [Ví Dụ 2: `JSplitPane` Với `JPanel`](#62-ví-dụ-2-jsplitpane-với-jpanel)
+7. [Kết Luận](#7-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`JSplitPane` cho phép chia giao diện thành hai vùng có thể thay đổi kích thước bằng cách kéo thả thanh ngăn giữa các vùng. `JSplitPane` giúp tạo các giao diện có nội dung đa chiều, nơi người dùng có thể điều chỉnh kích thước của mỗi vùng để tập trung vào nội dung cụ thể.
+
+**Đặc điểm chính của `JSplitPane`:**
+
+- **Chia giao diện thành hai vùng:** `JSplitPane` cho phép chia một giao diện thành hai vùng độc lập.
+- **Thanh kéo điều chỉnh:** Người dùng có thể thay đổi kích thước của mỗi vùng bằng cách kéo thả thanh ngăn.
+- **Hướng chia cắt:** Có thể được thiết lập để chia dọc hoặc chia ngang.
+
+---
+
+## 2. Cấu Trúc `JSplitPane`
+
+`JSplitPane` là một container có thể chứa hai thành phần giao diện (`Component`), được ngăn cách bởi một thanh kéo (`divider`). Bạn có thể thiết lập hướng chia cắt để xác định cách các thành phần được sắp xếp.
+
+---
+
+## 3. Tạo và Sử Dụng `JSplitPane`
+
+### 3.1. Tạo `JSplitPane` Cơ Bản
+
+Để tạo một `JSplitPane`, bạn chỉ cần khởi tạo đối tượng `JSplitPane`, chỉ định hướng chia cắt và hai thành phần sẽ nằm ở mỗi bên của thanh kéo.
+
+```java
+import javax.swing.*;
+
+public class JSplitPaneExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JSplitPane Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel leftPanel = new JPanel();
+        leftPanel.add(new JLabel("Left Panel"));
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.add(new JLabel("Right Panel"));
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
+        frame.add(splitPane);
+
+        frame.setVisible(true);
+    }
+}
+```
+
+### 3.2. Thiết Lập Hướng Chia Cắt
+
+`JSplitPane` hỗ trợ hai hướng chia cắt:
+
+- **JSplitPane.HORIZONTAL_SPLIT**: Chia giao diện theo chiều ngang, để lại một thành phần bên trái và một thành phần bên phải.
+- **JSplitPane.VERTICAL_SPLIT**: Chia giao diện theo chiều dọc, để lại một thành phần ở trên và một thành phần ở dưới.
+
+```java
+JSplitPane splitPaneHorizontal = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
+JSplitPane splitPaneVertical = new JSplitPane(JSplitPane.VERTICAL_SPLIT, topPanel, bottomPanel);
+```
+
+### 3.3. Thiết Lập Thành Phần Bên Trong `JSplitPane`
+
+`JSplitPane` yêu cầu hai thành phần con để hoạt động đúng, ví dụ: `JPanel`, `JScrollPane`, `JTextArea`, hoặc bất kỳ `Component` nào khác trong Swing.
+
+```java
+JPanel leftPanel = new JPanel();
+leftPanel.add(new JLabel("Left Panel"));
+
+JPanel rightPanel = new JPanel();
+rightPanel.add(new JLabel("Right Panel"));
+
+JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
+```
+
+---
+
+## 4. Thuộc Tính và Phương Thức Chính
+
+- **`setDividerLocation(double proportionalLocation)`**: Đặt vị trí ban đầu của thanh kéo theo tỷ lệ phần trăm.
+
+  ```java
+  splitPane.setDividerLocation(0.5); // Chia đều hai vùng
+  ```
+
+- **`setOneTouchExpandable(boolean expandable)`**: Cho phép thanh kéo có thể được ẩn hoặc hiện chỉ bằng một nút bấm.
+
+  ```java
+  splitPane.setOneTouchExpandable(true);
+  ```
+
+- **`setResizeWeight(double weight)`**: Đặt tỷ lệ mở rộng giữa các vùng khi kích thước `JSplitPane` thay đổi. Giá trị từ 0.0 đến 1.0 (0.0 cho phép mở rộng vùng thứ hai, 1.0 cho phép mở rộng vùng đầu tiên).
+
+  ```java
+  splitPane.setResizeWeight(0.5); // Cả hai vùng sẽ mở rộng đồng đều
+  ```
+
+- **`getLeftComponent()` / `getRightComponent()`**: Lấy thành phần ở vùng trái/phải (cho `HORIZONTAL_SPLIT`) hoặc trên/dưới (cho `VERTICAL_SPLIT`).
+
+  ```java
+  Component leftComponent = splitPane.getLeftComponent();
+  Component rightComponent = splitPane.getRightComponent();
+  ```
+
+- **`setDividerSize(int size)`**: Đặt kích thước của thanh ngăn cách.
+
+  ```java
+  splitPane.setDividerSize(10);
+  ```
+
+---
+
+## 5. Tùy Biến `JSplitPane`
+
+### 5.1. Thiết Lập Kích Thước Tối Thiểu
+
+Bạn có thể thiết lập kích thước tối thiểu cho mỗi thành phần bên trong `JSplitPane`. Điều này đảm bảo rằng khi kéo thanh ngăn cách, kích thước của các thành phần không nhỏ hơn mức được chỉ định.
+
+```java
+leftPanel.setMinimumSize(new Dimension(100, 100));
+rightPanel.setMinimumSize(new Dimension(100, 100));
+```
+
+### 5.2. Ẩn/Hiện Thanh Kéo
+
+Với `setOneTouchExpandable(true)`, bạn có thể thêm một nút trên thanh kéo để cho phép ẩn hoặc hiện vùng chia tách một cách nhanh chóng.
+
+```java
+splitPane.setOneTouchExpandable(true);
+```
+
+---
+
+## 6. Ví Dụ Minh Họa
+
+### 6.1. Ví Dụ 1: Tạo `JSplitPane` Cơ Bản
+
+```java
+import javax.swing.*;
+
+public class BasicJSplitPaneExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic JSplitPane Example");
+        frame.setSize(500, 300);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel leftPanel = new JPanel();
+        leftPanel.add(new JLabel("Left Panel"));
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.add(new JLabel("Right Panel"));
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, leftPanel, rightPanel);
+        splitPane.setDividerLocation(150); // Đặt vị trí ban đầu của thanh kéo
+
+        frame.add(splitPane);
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Ví Dụ 2: `JSplitPane` Với `JPanel`
+
+Trong ví dụ này, chúng ta sẽ tùy chỉnh `JSplitPane` bằng cách sử dụng các thành phần con `JPanel` với các thuộc tính bổ sung.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class CustomJSplitPaneExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Custom JSplitPane Example");
+        frame.setSize(600, 400);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel leftPanel = new JPanel();
+        left
+
+Panel.setBackground(Color.LIGHT_GRAY);
+        leftPanel.add(new JLabel("Left Panel"));
+
+        JPanel rightPanel = new JPanel();
+        rightPanel.setBackground(Color.CYAN);
+        rightPanel.add(new JLabel("Right Panel"));
+
+        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, leftPanel, rightPanel);
+        splitPane.setDividerLocation(0.4); // Đặt thanh kéo ban đầu ở 40% từ trên xuống
+        splitPane.setResizeWeight(0.5);    // Cả hai vùng mở rộng đồng đều
+        splitPane.setOneTouchExpandable(true); // Bật chế độ ẩn/hiện thanh kéo
+
+        frame.add(splitPane);
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. Kết Luận
+
+`JSplitPane` là một thành phần hữu ích trong Swing, giúp bạn tạo các giao diện có vùng chia cắt linh hoạt và cho phép người dùng tùy chỉnh kích thước của các vùng. `JSplitPane` thích hợp cho các ứng dụng hiển thị nhiều nội dung, như cửa sổ làm việc của các phần mềm IDE, trình quản lý tệp tin, hoặc các ứng dụng yêu cầu bố cục động.
+
+**Một số lưu ý cuối:**
+
+- **Thiết lập hướng chia cắt phù hợp:** Chọn giữa `HORIZONTAL_SPLIT` hoặc `VERTICAL_SPLIT` dựa trên bố cục giao diện.
+- **Điều chỉnh tỷ lệ mở rộng:** Sử dụng `setResizeWeight()` để xác định tỷ lệ mở rộng của các vùng khi cửa sổ thay đổi kích thước.
+- **Sử dụng kích thước tối thiểu:** Đảm bảo mỗi vùng có kích thước tối thiểu phù hợp, tránh tình trạng các thành phần bên trong bị cắt.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JSplitPane` và cách sử dụng nó trong các ứng dụng Swing của mình.
