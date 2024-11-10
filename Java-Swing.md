@@ -15248,3 +15248,882 @@ public class DynamicMenuItemsDemo {
 - **Accessibility:** Đảm bảo rằng menu hỗ trợ đầy đủ các tính năng truy cập, như hỗ trợ phím tắt và khả năng đọc màn hình, để phục vụ cho tất cả người dùng.
 
 Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JMenu` và cách sử dụng nó trong các ứng dụng Swing của mình. Bằng cách nắm vững các kiến thức cơ bản và nâng cao về `JMenu`, bạn có thể xây dựng các giao diện người dùng chuyên nghiệp, linh hoạt và hiệu quả, đáp ứng tốt các yêu cầu của ứng dụng.
+
+---
+
+# JPopupMenu
+
+`JPopupMenu` là một thành phần giao diện người dùng trong thư viện Swing của Java, được sử dụng để tạo các menu ngữ cảnh (context menus) xuất hiện khi người dùng thực hiện các hành động như nhấp chuột phải hoặc nhấn phím chuột tại một vị trí cụ thể trên giao diện. Menu ngữ cảnh cung cấp các tùy chọn và lệnh liên quan trực tiếp đến phần tử hoặc khu vực mà người dùng tương tác, giúp tăng tính trực quan và thuận tiện cho ứng dụng.
+
+## Mục Lục
+
+1. [Giới Thiệu](#1-giới-thiệu)
+2. [Tạo và Sử Dụng `JPopupMenu`](#2-tạo-va-sử-dụng-jpopupmenu)
+   1. [Tạo `JPopupMenu`](#21-tạo-jpopupmenu)
+   2. [Thiết Lập Thuộc Tính](#22-thiết-lập-thuộc-tính)
+   3. [Thêm `JPopupMenu` Vào Component](#23-thêm-jpopupmenu-vào-component)
+3. [Thuộc Tính và Phương Thức Chính](#3-thuộc-tính-và-phương-thức-chính)
+   1. [Thuộc Tính](#31-thuộc-tính)
+   2. [Phương Thức](#32-phương-thức)
+4. [Xử Lý Sự Kiện](#4-xử-lý-sự-kiện)
+   1. [Sử Dụng `ActionListener`](#41-sử-dụng-actionlistener)
+   2. [Sử Dụng `MouseListener`](#42-sử-dụng-mouselistener)
+5. [Tùy Biến `JPopupMenu`](#5-tùy-biến-jpopupmenu)
+   1. [Thêm Các Thành Phần Vào `JPopupMenu`](#51-thêm-các-thành-phần-vào-jpopupmenu)
+   2. [Thêm Hình Ảnh và Biểu Tượng](#52-thêm-hình-ảnh-và-biểu-tượng)
+   3. [Sử Dụng Check Box và Radio Button trong `JPopupMenu`](#53-sử-dụng-check-box-và-radio-button-trong-jpopupmenu)
+6. [Các Tình Huống Sử Dụng Nâng Cao](#6-các-tình-huống-sử-dụng-nâng-cao)
+   1. [Tạo Menu Động](#61-tạo-menu-động)
+   2. [Sử Dụng Mnemonic và Accelerator](#62-sử-dụng-mnemonic-và-accelerator)
+   3. [Tùy Chỉnh Giao Diện](#63-tùy-chỉnh-giao-diện)
+7. [So Sánh `JPopupMenu` Với Các Thành Phần Khác](#7-so-sánh-jpopupmenu-với-các-thành-phần-khác)
+   1. [Với `JMenu`](#71-với-jmenu)
+   2. [Với `JToolBar`](#72-với-jtoolbar)
+8. [Ví Dụ Minh Họa](#8-vi-du-minh-hoa)
+   1. [Ví Dụ 1: Tạo `JPopupMenu` Cơ Bản](#81-vi-du-1-tạo-jpopupmenu-cơ-bản)
+   2. [Ví Dụ 2: Thêm Menu Item với `ActionListener`](#82-vi-du-2-thêm-menu-item-với-actionlistener)
+   3. [Ví Dụ 3: Thêm Check Box và Radio Button Menu Items](#83-vi-du-3-thêm-check-box-và-radio-button-menu-items)
+   4. [Ví Dụ 4: Sử Dụng Mnemonics và Accelerators](#84-vi-du-4-sử-dụng-mnemonics-và-accelerators)
+   5. [Ví Dụ 5: Tạo Menu Động](#85-vi-du-5-tạo-menu-động)
+9. [Kết Luận](#9-kết-luận)
+
+---
+
+## 1. Giới Thiệu
+
+`JPopupMenu` là một thành phần trong Swing được thiết kế để hiển thị các menu ngữ cảnh, thường xuất hiện khi người dùng nhấp chuột phải hoặc nhấn tổ hợp phím đặc biệt trên một component. Menu ngữ cảnh cung cấp các tùy chọn và lệnh liên quan đến phần tử hoặc khu vực mà người dùng tương tác, giúp tăng tính trực quan và tiện lợi cho ứng dụng.
+
+**Đặc điểm chính:**
+
+- **Menu ngữ cảnh:** Hiển thị các tùy chọn liên quan đến phần tử cụ thể.
+- **Tùy biến cao:** Có thể thêm nhiều loại menu items như `JMenuItem`, `JCheckBoxMenuItem`, `JRadioButtonMenuItem`.
+- **Hỗ trợ đa cấp:** Các menu có thể chứa các menu con, tạo thành cấu trúc menu đa cấp.
+- **Dễ dàng tích hợp:** Có thể dễ dàng tích hợp vào bất kỳ component nào trong ứng dụng Swing.
+
+---
+
+## 2. Tạo và Sử Dụng `JPopupMenu`
+
+### 2.1. Tạo `JPopupMenu`
+
+Để sử dụng `JPopupMenu`, bạn cần tạo một đối tượng `JPopupMenu` và thêm các menu items vào nó. Sau đó, bạn liên kết `JPopupMenu` với một component cụ thể để hiển thị menu ngữ cảnh khi người dùng tương tác với component đó.
+
+```java
+import javax.swing.*;
+
+public class JPopupMenuCreationExample {
+    public static void main(String[] args) {
+        // Tạo JFrame
+        JFrame frame = new JFrame("JPopupMenu Creation Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        // Tạo JTextArea để áp dụng JPopupMenu
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu.");
+        frame.add(new JScrollPane(textArea));
+        
+        // Tạo JPopupMenu
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        // Tạo và thêm JMenuItem vào JPopupMenu
+        JMenuItem cutItem = new JMenuItem("Cut");
+        JMenuItem copyItem = new JMenuItem("Copy");
+        JMenuItem pasteItem = new JMenuItem("Paste");
+        
+        popupMenu.add(cutItem);
+        popupMenu.add(copyItem);
+        popupMenu.add(pasteItem);
+        
+        // Liên kết JPopupMenu với JTextArea
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        // Hiển thị JFrame
+        frame.setVisible(true);
+    }
+}
+```
+
+### 2.2. Thiết Lập Thuộc Tính
+
+Bạn có thể thiết lập các thuộc tính của `JPopupMenu` như kích thước, vị trí, và các tùy chọn hiển thị để phù hợp với nhu cầu của ứng dụng.
+
+```java
+// Thiết lập kích thước tối đa cho JPopupMenu
+popupMenu.setPreferredSize(new Dimension(200, 100));
+
+// Thiết lập vị trí hiển thị tương đối với component
+popupMenu.show(component, x, y);
+```
+
+### 2.3. Thêm `JPopupMenu` Vào Component
+
+`JPopupMenu` có thể được thêm vào bất kỳ component nào như `JTextArea`, `JPanel`, hoặc `JTable`. Bạn có thể sử dụng phương thức `setComponentPopupMenu` hoặc xử lý sự kiện chuột để hiển thị menu ngữ cảnh.
+
+```java
+// Sử dụng setComponentPopupMenu
+textArea.setComponentPopupMenu(popupMenu);
+
+// Hoặc sử dụng MouseListener để hiển thị JPopupMenu
+textArea.addMouseListener(new MouseAdapter() {
+    public void mousePressed(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+            popupMenu.show(e.getComponent(), e.getX(), e.getY());
+        }
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        if (e.isPopupTrigger()) {
+            popupMenu.show(e.getComponent(), e.getX(), e.getY());
+        }
+    }
+});
+```
+
+---
+
+## 3. Thuộc Tính và Phương Thức Chính
+
+### 3.1. Thuộc Tính
+
+- **Popup Menu Components (`popupMenuComponents`):** Danh sách các thành phần menu như `JMenuItem`, `JCheckBoxMenuItem`, `JRadioButtonMenuItem`, và các `JPopupMenu` con.
+  
+  ```java
+  JPopupMenu popupMenu = new JPopupMenu();
+  popupMenu.add(new JMenuItem("Option 1"));
+  popupMenu.add(new JCheckBoxMenuItem("Option 2"));
+  popupMenu.add(new JRadioButtonMenuItem("Option 3"));
+  ```
+
+- **Invoker (`invoker`):** Component mà `JPopupMenu` được liên kết.
+
+  ```java
+  popupMenu.show(invokerComponent, x, y);
+  ```
+
+- **Light Weight Popup Enabled (`lightWeightPopupEnabled`):** Xác định xem `JPopupMenu` có sử dụng popup nhẹ hay không.
+
+  ```java
+  popupMenu.setLightWeightPopupEnabled(true);
+  ```
+
+- **Focusable (`focusable`):** Xác định xem `JPopupMenu` có thể nhận focus hay không.
+
+  ```java
+  popupMenu.setFocusable(true);
+  ```
+
+### 3.2. Phương Thức
+
+- **`add(JMenuItem menuItem)`**: Thêm một `JMenuItem` vào `JPopupMenu`.
+
+  ```java
+  popupMenu.add(new JMenuItem("Option 1"));
+  ```
+
+- **`addSeparator()`**: Thêm một đường phân cách vào `JPopupMenu`.
+
+  ```java
+  popupMenu.addSeparator();
+  ```
+
+- **`show(Component invoker, int x, int y)`**: Hiển thị `JPopupMenu` tại vị trí (x, y) tương đối với component `invoker`.
+
+  ```java
+  popupMenu.show(invokerComponent, x, y);
+  ```
+
+- **`removeAll()`**: Xóa tất cả các thành phần khỏi `JPopupMenu`.
+
+  ```java
+  popupMenu.removeAll();
+  ```
+
+- **`setComponentPopupMenu(JPopupMenu popup)`**: Liên kết `JPopupMenu` với một component cụ thể.
+
+  ```java
+  component.setComponentPopupMenu(popupMenu);
+  ```
+
+- **`setLightWeightPopupEnabled(boolean b)`**: Đặt chế độ popup nhẹ cho `JPopupMenu`.
+
+  ```java
+  popupMenu.setLightWeightPopupEnabled(false);
+  ```
+
+- **`isLightWeightPopupEnabled()`**: Kiểm tra xem popup nhẹ có được bật hay không.
+
+  ```java
+  boolean isLightWeight = popupMenu.isLightWeightPopupEnabled();
+  ```
+
+---
+
+## 4. Xử Lý Sự Kiện
+
+### 4.1. Sử Dụng `ActionListener`
+
+Để xử lý các sự kiện khi người dùng chọn một `JMenuItem` trong `JPopupMenu`, bạn có thể thêm `ActionListener` vào từng `JMenuItem`.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class JPopupMenuActionListenerExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JPopupMenu ActionListener Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JMenuItem cutItem = new JMenuItem("Cut");
+        JMenuItem copyItem = new JMenuItem("Copy");
+        JMenuItem pasteItem = new JMenuItem("Paste");
+        
+        // Thêm ActionListener cho JMenuItem
+        cutItem.addActionListener(e -> textArea.cut());
+        copyItem.addActionListener(e -> textArea.copy());
+        pasteItem.addActionListener(e -> textArea.paste());
+        
+        popupMenu.add(cutItem);
+        popupMenu.add(copyItem);
+        popupMenu.add(pasteItem);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+### 4.2. Sử Dụng `MouseListener`
+
+Bạn có thể sử dụng `MouseListener` để xử lý các sự kiện chuột, chẳng hạn như khi người dùng nhấp chuột phải để hiển thị `JPopupMenu`.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class JPopupMenuMouseListenerExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JPopupMenu MouseListener Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JPanel panel = new JPanel();
+        panel.setComponentPopupMenu(createPopupMenu());
+        
+        // Thêm MouseListener để hiển thị JPopupMenu
+        panel.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    createPopupMenu().show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+            
+            public void mouseReleased(MouseEvent e) {
+                if (e.isPopupTrigger()) {
+                    createPopupMenu().show(e.getComponent(), e.getX(), e.getY());
+                }
+            }
+        });
+        
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+    
+    private static JPopupMenu createPopupMenu() {
+        JPopupMenu popup = new JPopupMenu();
+        
+        JMenuItem option1 = new JMenuItem("Option 1");
+        option1.addActionListener(e -> JOptionPane.showMessageDialog(null, "Option 1 Selected"));
+        
+        JMenuItem option2 = new JMenuItem("Option 2");
+        option2.addActionListener(e -> JOptionPane.showMessageDialog(null, "Option 2 Selected"));
+        
+        popup.add(option1);
+        popup.add(option2);
+        
+        return popup;
+    }
+}
+```
+
+---
+
+## 5. Tùy Biến `JPopupMenu`
+
+### 5.1. Thêm Các Thành Phần Vào `JPopupMenu`
+
+`JPopupMenu` có thể chứa nhiều loại thành phần khác nhau như `JMenuItem`, `JCheckBoxMenuItem`, `JRadioButtonMenuItem`, và các `JPopupMenu` con để tạo thành cấu trúc menu đa cấp.
+
+```java
+import javax.swing.*;
+
+public class JPopupMenuComponentsExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JPopupMenu Components Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        // Thêm JMenuItem
+        JMenuItem cutItem = new JMenuItem("Cut");
+        JMenuItem copyItem = new JMenuItem("Copy");
+        JMenuItem pasteItem = new JMenuItem("Paste");
+        
+        // Thêm JCheckBoxMenuItem
+        JCheckBoxMenuItem enableNotifications = new JCheckBoxMenuItem("Enable Notifications");
+        enableNotifications.setSelected(true);
+        
+        // Thêm JRadioButtonMenuItem
+        JRadioButtonMenuItem lightTheme = new JRadioButtonMenuItem("Light Theme");
+        JRadioButtonMenuItem darkTheme = new JRadioButtonMenuItem("Dark Theme");
+        ButtonGroup themeGroup = new ButtonGroup();
+        themeGroup.add(lightTheme);
+        themeGroup.add(darkTheme);
+        lightTheme.setSelected(true);
+        
+        // Thêm submenu
+        JPopupMenu submenu = new JPopupMenu();
+        JMenuItem submenuItem1 = new JMenuItem("Submenu Item 1");
+        JMenuItem submenuItem2 = new JMenuItem("Submenu Item 2");
+        submenu.add(submenuItem1);
+        submenu.add(submenuItem2);
+        
+        JMenuItem moreOptions = new JMenuItem("More Options");
+        moreOptions.setPopupMenu(submenu);
+        
+        // Thêm các thành phần vào JPopupMenu
+        popupMenu.add(cutItem);
+        popupMenu.add(copyItem);
+        popupMenu.add(pasteItem);
+        popupMenu.addSeparator();
+        popupMenu.add(enableNotifications);
+        popupMenu.addSeparator();
+        popupMenu.add(lightTheme);
+        popupMenu.add(darkTheme);
+        popupMenu.addSeparator();
+        popupMenu.add(moreOptions);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+### 5.2. Thêm Hình Ảnh và Biểu Tượng
+
+Bạn có thể thêm biểu tượng vào các `JMenuItem` để cải thiện giao diện người dùng và tăng tính trực quan.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class JPopupMenuIconExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JPopupMenu Icon Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu with icons.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        // Thêm JMenuItem với biểu tượng
+        JMenuItem newItem = new JMenuItem("New", new ImageIcon("icons/new.png"));
+        JMenuItem openItem = new JMenuItem("Open", new ImageIcon("icons/open.png"));
+        JMenuItem saveItem = new JMenuItem("Save", new ImageIcon("icons/save.png"));
+        
+        popupMenu.add(newItem);
+        popupMenu.add(openItem);
+        popupMenu.add(saveItem);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+**Lưu ý:** Đảm bảo rằng các tệp hình ảnh (ví dụ: `new.png`, `open.png`, `save.png`) tồn tại trong thư mục `icons` hoặc đường dẫn tương ứng.
+
+### 5.3. Sử Dụng Check Box và Radio Button trong `JPopupMenu`
+
+Bạn có thể sử dụng `JCheckBoxMenuItem` và `JRadioButtonMenuItem` để cho phép người dùng chọn hoặc bỏ chọn các tùy chọn trong `JPopupMenu`.
+
+#### Sử Dụng `JCheckBoxMenuItem`
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class JCheckBoxMenuItemInPopupMenu {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JCheckBoxMenuItem in JPopupMenu");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu with check boxes.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JCheckBoxMenuItem boldItem = new JCheckBoxMenuItem("Bold");
+        JCheckBoxMenuItem italicItem = new JCheckBoxMenuItem("Italic");
+        
+        popupMenu.add(boldItem);
+        popupMenu.add(italicItem);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+#### Sử Dụng `JRadioButtonMenuItem`
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class JRadioButtonMenuItemInPopupMenu {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JRadioButtonMenuItem in JPopupMenu");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu with radio buttons.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JRadioButtonMenuItem lightTheme = new JRadioButtonMenuItem("Light Theme");
+        JRadioButtonMenuItem darkTheme = new JRadioButtonMenuItem("Dark Theme");
+        JRadioButtonMenuItem systemTheme = new JRadioButtonMenuItem("System Default");
+        
+        ButtonGroup themeGroup = new ButtonGroup();
+        themeGroup.add(lightTheme);
+        themeGroup.add(darkTheme);
+        themeGroup.add(systemTheme);
+        
+        systemTheme.setSelected(true);
+        
+        popupMenu.add(lightTheme);
+        popupMenu.add(darkTheme);
+        popupMenu.add(systemTheme);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 6. Các Tình Huống Sử Dụng Nâng Cao
+
+### 6.1. Tạo Menu Động
+
+Bạn có thể tạo các menu và menu item một cách động dựa trên dữ liệu hoặc sự kiện trong ứng dụng. Điều này hữu ích trong các ứng dụng cần tạo menu dựa trên dữ liệu nhập vào hoặc từ cơ sở dữ liệu.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class DynamicJPopupMenuExample {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Dynamic JPopupMenu Example");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the dynamic popup menu.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        // Thêm nút để thêm menu item động
+        JButton addButton = new JButton("Add Menu Item");
+        frame.add(addButton, BorderLayout.SOUTH);
+        
+        addButton.addActionListener(e -> {
+            String itemName = JOptionPane.showInputDialog(frame, "Enter Menu Item Name:");
+            if (itemName != null && !itemName.trim().isEmpty()) {
+                JMenuItem newItem = new JMenuItem(itemName);
+                newItem.addActionListener(ev -> JOptionPane.showMessageDialog(frame, "You clicked: " + itemName));
+                popupMenu.add(newItem);
+                popupMenu.revalidate();
+                popupMenu.repaint();
+            }
+        });
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.2. Sử Dụng Mnemonic và Accelerator
+
+Mnemonics và accelerators giúp người dùng truy cập nhanh các menu và menu item bằng phím tắt.
+
+- **Mnemonic:** Phím được sử dụng kết hợp với phím Alt để mở menu hoặc chọn menu item.
+- **Accelerator:** Phím tắt không cần phải kết hợp với phím Alt, thường là phím Ctrl + phím khác.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class MnemonicAcceleratorInJPopupMenu {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Mnemonic and Accelerator in JPopupMenu");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu with mnemonics and accelerators.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JMenuItem saveItem = new JMenuItem("Save");
+        saveItem.setMnemonic(KeyEvent.VK_S); // Alt + S khi popup menu đang mở
+        saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK)); // Ctrl + S
+        saveItem.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Save Action Triggered"));
+        
+        JMenuItem loadItem = new JMenuItem("Load");
+        loadItem.setMnemonic(KeyEvent.VK_L);
+        loadItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK)); // Ctrl + L
+        loadItem.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Load Action Triggered"));
+        
+        popupMenu.add(saveItem);
+        popupMenu.add(loadItem);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+### 6.3. Tùy Chỉnh Giao Diện
+
+Bạn có thể thay đổi giao diện của `JPopupMenu` bằng cách thay đổi màu sắc, font chữ, và thêm các thành phần tùy chỉnh để làm cho `JPopupMenu` phù hợp với thiết kế tổng thể của ứng dụng.
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class CustomizeJPopupMenuAppearance {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Customize JPopupMenu Appearance");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the customized popup menu.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        popupMenu.setBackground(Color.DARK_GRAY);
+        popupMenu.setForeground(Color.WHITE);
+        popupMenu.setFont(new Font("Arial", Font.BOLD, 14));
+        
+        JMenuItem option1 = new JMenuItem("Option 1");
+        option1.setBackground(Color.GRAY);
+        option1.setForeground(Color.WHITE);
+        
+        JMenuItem option2 = new JMenuItem("Option 2");
+        option2.setBackground(Color.GRAY);
+        option2.setForeground(Color.WHITE);
+        
+        popupMenu.add(option1);
+        popupMenu.add(option2);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 7. So Sánh `JPopupMenu` Với Các Thành Phần Khác
+
+### 7.1. Với `JMenu`
+
+| Tiêu Chí                | `JPopupMenu`                                  | `JMenu`                                     |
+|-------------------------|-----------------------------------------------|---------------------------------------------|
+| Mục đích sử dụng        | Tạo menu ngữ cảnh xuất hiện khi tương tác    | Tạo menu chính hoặc menu con trong `JMenuBar`|
+| Vị trí hiển thị         | Xuất hiện tại vị trí chuột hoặc sự kiện       | Thường nằm trong thanh menu (`JMenuBar`)    |
+| Tính năng mở rộng       | Hỗ trợ menu đa cấp, tùy chỉnh linh hoạt      | Hỗ trợ menu đa cấp, nhưng nằm trong `JMenuBar`|
+| Tùy biến giao diện      | Cao, hỗ trợ thêm các thành phần tùy chỉnh     | Cao, nhưng chủ yếu nằm trong thanh menu    |
+| Sử dụng phổ biến        | Trong các ứng dụng cần menu ngữ cảnh linh hoạt| Trong các ứng dụng có cấu trúc menu chính  |
+
+### 7.2. Với `JToolBar`
+
+| Tiêu Chí                | `JPopupMenu`                                  | `JToolBar`                                  |
+|-------------------------|-----------------------------------------------|---------------------------------------------|
+| Mục đích sử dụng        | Cung cấp các tùy chọn ngữ cảnh liên quan      | Cung cấp các nút công cụ để truy cập nhanh các lệnh |
+| Vị trí hiển thị         | Xuất hiện khi tương tác với component          | Thường nằm ngang hoặc dọc, gần `JMenuBar`    |
+| Tính năng mở rộng       | Hỗ trợ menu đa cấp, tùy chỉnh linh hoạt      | Hỗ trợ biểu tượng, tooltip, và các nút tương tác |
+| Tùy biến giao diện      | Cao, hỗ trợ thêm các thành phần tùy chỉnh     | Cao, hỗ trợ thêm biểu tượng và nút tùy chỉnh |
+| Sử dụng phổ biến        | Trong các ứng dụng cần menu ngữ cảnh          | Trong các ứng dụng yêu cầu truy cập nhanh các lệnh thường dùng |
+
+---
+
+## 8. Ví Dụ Minh Họa
+
+### 8.1. Ví Dụ 1: Tạo `JPopupMenu` Cơ Bản
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class BasicJPopupMenuDemo {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Basic JPopupMenu Demo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JMenuItem cutItem = new JMenuItem("Cut");
+        JMenuItem copyItem = new JMenuItem("Copy");
+        JMenuItem pasteItem = new JMenuItem("Paste");
+        
+        popupMenu.add(cutItem);
+        popupMenu.add(copyItem);
+        popupMenu.add(pasteItem);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+### 8.2. Ví Dụ 2: Thêm Menu Item với `ActionListener`
+
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class JPopupMenuActionListenerDemo {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JPopupMenu ActionListener Demo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu with actions.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JMenuItem option1 = new JMenuItem("Option 1");
+        JMenuItem option2 = new JMenuItem("Option 2");
+        JMenuItem exitItem = new JMenuItem("Exit");
+        
+        // Thêm ActionListener cho JMenuItem
+        option1.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Option 1 Selected"));
+        option2.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Option 2 Selected"));
+        exitItem.addActionListener(e -> System.exit(0));
+        
+        popupMenu.add(option1);
+        popupMenu.add(option2);
+        popupMenu.addSeparator();
+        popupMenu.add(exitItem);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+### 8.3. Ví Dụ 3: Thêm Check Box và Radio Button Menu Items
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class JCheckBoxJPopupMenuDemo {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JCheckBoxMenuItem in JPopupMenu Demo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu with check boxes.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JCheckBoxMenuItem boldItem = new JCheckBoxMenuItem("Bold");
+        JCheckBoxMenuItem italicItem = new JCheckBoxMenuItem("Italic");
+        
+        popupMenu.add(boldItem);
+        popupMenu.add(italicItem);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+```java
+import javax.swing.*;
+import java.awt.*;
+
+public class JRadioButtonJPopupMenuDemo {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JRadioButtonMenuItem in JPopupMenu Demo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(500, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu with radio buttons.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JRadioButtonMenuItem option1 = new JRadioButtonMenuItem("Option 1");
+        JRadioButtonMenuItem option2 = new JRadioButtonMenuItem("Option 2");
+        JRadioButtonMenuItem option3 = new JRadioButtonMenuItem("Option 3");
+        
+        ButtonGroup group = new ButtonGroup();
+        group.add(option1);
+        group.add(option2);
+        group.add(option3);
+        
+        popupMenu.add(option1);
+        popupMenu.add(option2);
+        popupMenu.add(option3);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+### 8.4. Ví Dụ 4: Sử Dụng Mnemonics và Accelerators
+
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class JPopupMenuMnemonicAcceleratorDemo {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("JPopupMenu Mnemonic and Accelerator Demo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the popup menu with mnemonics and accelerators.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        JMenuItem saveItem = new JMenuItem("Save");
+        saveItem.setMnemonic(KeyEvent.VK_S); // Alt + S khi popup menu đang mở
+        saveItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK)); // Ctrl + S
+        saveItem.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Save Action Triggered"));
+        
+        JMenuItem loadItem = new JMenuItem("Load");
+        loadItem.setMnemonic(KeyEvent.VK_L);
+        loadItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK)); // Ctrl + L
+        loadItem.addActionListener(e -> JOptionPane.showMessageDialog(frame, "Load Action Triggered"));
+        
+        JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.setMnemonic(KeyEvent.VK_E);
+        exitItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_Q, ActionEvent.CTRL_MASK)); // Ctrl + Q
+        exitItem.addActionListener(e -> System.exit(0));
+        
+        popupMenu.add(saveItem);
+        popupMenu.add(loadItem);
+        popupMenu.addSeparator();
+        popupMenu.add(exitItem);
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+### 8.5. Ví Dụ 5: Tạo Menu Động
+
+```java
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+
+public class DynamicJPopupMenuDemo {
+    public static void main(String[] args) {
+        JFrame frame = new JFrame("Dynamic JPopupMenu Demo");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 400);
+        
+        JTextArea textArea = new JTextArea("Right-click to see the dynamic popup menu.");
+        frame.add(new JScrollPane(textArea));
+        
+        JPopupMenu popupMenu = new JPopupMenu();
+        
+        // Thêm nút để thêm menu item động
+        JButton addButton = new JButton("Add Menu Item");
+        frame.add(addButton, BorderLayout.SOUTH);
+        
+        addButton.addActionListener(e -> {
+            String itemName = JOptionPane.showInputDialog(frame, "Enter Menu Item Name:");
+            if (itemName != null && !itemName.trim().isEmpty()) {
+                JMenuItem newItem = new JMenuItem(itemName);
+                newItem.addActionListener(ev -> JOptionPane.showMessageDialog(frame, "You clicked: " + itemName));
+                popupMenu.add(newItem);
+                popupMenu.revalidate();
+                popupMenu.repaint();
+            }
+        });
+        
+        textArea.setComponentPopupMenu(popupMenu);
+        
+        frame.setVisible(true);
+    }
+}
+```
+
+---
+
+## 9. Kết Luận
+
+`JPopupMenu` là một thành phần mạnh mẽ trong Swing, giúp tạo ra các menu ngữ cảnh linh hoạt và trực quan cho người dùng. Với khả năng tùy biến cao, hỗ trợ nhiều loại menu items, và dễ dàng tích hợp vào bất kỳ component nào trong ứng dụng, `JPopupMenu` là công cụ hữu ích để cải thiện trải nghiệm người dùng và tăng tính tương tác cho ứng dụng của bạn.
+
+**Một số lưu ý cuối:**
+
+- **Tổ chức menu hợp lý:** Đảm bảo các lệnh và tùy chọn được nhóm lại một cách hợp lý để người dùng dễ dàng tìm kiếm và sử dụng.
+- **Sử dụng mnemonics và accelerators:** Cải thiện trải nghiệm người dùng bằng cách cung cấp các phím tắt cho các menu và menu items.
+- **Tùy biến giao diện:** Thêm biểu tượng, thay đổi màu sắc, và điều chỉnh font chữ để làm cho `JPopupMenu` phù hợp với thiết kế tổng thể của ứng dụng.
+- **Xử lý sự kiện:** Sử dụng `ActionListener` và `MouseListener` để xử lý các sự kiện khi người dùng tương tác với menu.
+- **Tạo menu động:** Trong các ứng dụng yêu cầu, bạn có thể tạo các menu và menu items một cách động dựa trên dữ liệu hoặc sự kiện trong ứng dụng.
+- **Quản lý menu đa cấp:** Sử dụng các `JPopupMenu` con để tạo cấu trúc menu đa cấp, giúp tổ chức các lệnh phức tạp một cách dễ hiểu.
+- **Accessibility:** Đảm bảo rằng `JPopupMenu` hỗ trợ đầy đủ các tính năng truy cập, như hỗ trợ phím tắt và khả năng đọc màn hình, để phục vụ cho tất cả người dùng.
+
+Hy vọng tài liệu này giúp bạn hiểu rõ hơn về `JPopupMenu` và cách sử dụng nó trong các ứng dụng Swing của mình. Bằng cách nắm vững các kiến thức cơ bản và nâng cao về `JPopupMenu`, bạn có thể xây dựng các giao diện người dùng chuyên nghiệp, linh hoạt và hiệu quả, đáp ứng tốt các yêu cầu của ứng dụng.
